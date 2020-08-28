@@ -2,6 +2,19 @@ package dog.snow.androidrecruittest.repository
 
 class RepositoryImpl : Repository {
     override suspend fun updateDataFromApi(): Boolean {
-        TODO("Not yet implemented")
+
+
+        return true
+    }
+
+
+    suspend fun downloadPhotos(){
+
+    }
+    suspend fun downloadUsers(){
+
+    }
+    suspend fun downloadAlbums(){
+
     }
 }
