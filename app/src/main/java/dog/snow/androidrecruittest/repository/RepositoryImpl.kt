@@ -1,6 +1,9 @@
 package dog.snow.androidrecruittest.repository
 
-class RepositoryImpl : Repository {
+import javax.inject.Inject
+
+
+class RepositoryImpl @Inject constructor() : Repository {
     override suspend fun updateDataFromApi(): Boolean {
 
 
