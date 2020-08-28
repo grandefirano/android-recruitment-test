@@ -1,23 +1,26 @@
-package dog.snow.androidrecruittest
+package dog.snow.androidrecruittest.ui.splash
 
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import dog.snow.androidrecruittest.R
+import dog.snow.androidrecruittest.ui.MainActivity
 
-@AndroidEntryPoint
-class SplashActivity : AppCompatActivity(R.layout.splash_activity) {
+class SplashFragment: Fragment(R.layout.splash_fragment) {
 
 
 
     private fun showError(errorMessage: String?) {
-        MaterialAlertDialogBuilder(this)
+        MaterialAlertDialogBuilder(requireActivity())
             .setTitle(R.string.cant_download_dialog_title)
             .setMessage(getString(R.string.cant_download_dialog_message, errorMessage))
             .setPositiveButton(R.string.cant_download_dialog_btn_positive) { _, _ -> /*tryAgain()*/ }
-            .setNegativeButton(R.string.cant_download_dialog_btn_negative) { _, _ -> finish() }
+            .setNegativeButton(R.string.cant_download_dialog_btn_negative) { _, _ -> closeActivity() }
             .create()
             .apply { setCanceledOnTouchOutside(false) }
             .show()
+    }
+
+    private fun closeActivity(){
+        (activity as MainActivity).finish()
     }
 }

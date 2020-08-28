@@ -1,4 +1,4 @@
-package dog.snow.androidrecruittest
+package dog.snow.androidrecruittest.ui.splash
 
 import androidx.lifecycle.ViewModel
 
