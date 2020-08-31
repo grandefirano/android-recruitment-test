@@ -1,10 +1,7 @@
 package dog.snow.androidrecruittest.ui.splash
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import dog.snow.androidrecruittest.Event
 import dog.snow.androidrecruittest.repository.Repository
 import kotlinx.coroutines.*
@@ -24,8 +21,10 @@ class SplashViewModel @ViewModelInject constructor(
     }
 
     fun updateCache(){
-        GlobalScope.launch {
-        delay(5000)
+        viewModelScope.launch {
+
+            repository.updateDataFromApi()
+
             withContext(Dispatchers.Main){
             navigateToList()
         }

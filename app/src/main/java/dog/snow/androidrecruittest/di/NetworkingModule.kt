@@ -13,18 +13,24 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
-@Module(includes = [NetworkingModule.Declarations::class])
+@Module//(includes = [NetworkingModule.Declarations::class])
 @InstallIn(ApplicationComponent::class)
 object NetworkingModule {
 
 
-    @InstallIn(ApplicationComponent::class)
-    @Module
-    interface Declarations{
-        @Singleton
-        @Binds
-        fun bindsCallAdapterFactory(callAdapterFactory: CoroutineCallAdapterFactory):CallAdapter.Factory
+//    @InstallIn(ApplicationComponent::class)
+//    @Module
+//    interface Declarations{
+//        @Singleton
+//        @Binds
+//        fun bindsCallAdapterFactory(callAdapterFactory: CoroutineCallAdapterFactory):CallAdapter.Factory
+//    }
+    @Singleton
+    @Provides
+    fun providesCallAdapterFactory():CallAdapter.Factory{
+        return CoroutineCallAdapterFactory()
     }
+
 
     @Singleton
     @Provides
