@@ -1,12 +1,16 @@
 package dog.snow.androidrecruittest.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface UserPhotoDao {
+
+
+    @Transaction
+    suspend fun updateListOfUsers(userPhotos:List<DatabaseUserPhoto>){
+        clearUserPhotos()
+        insertListOfUserPhotos(userPhotos)
+    }
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertListOfUserPhotos(userPhotos:List<DatabaseUserPhoto>)

@@ -1,4 +1,4 @@
-package dog.snow.androidrecruittest.ui
+package dog.snow.androidrecruittest.ui.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,7 @@ import androidx.fragment.app.Fragment
 import dog.snow.androidrecruittest.MainActivity
 import dog.snow.androidrecruittest.R
 
-class ListFragment : Fragment(R.layout.list_fragment){
-
-
+class DetailsFragment : Fragment(R.layout.details_fragment){
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

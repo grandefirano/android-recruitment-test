@@ -1,4 +1,4 @@
-package dog.snow.androidrecruittest.ui.adapter
+package dog.snow.androidrecruittest.ui.list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,14 +8,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import dog.snow.androidrecruittest.R
-import dog.snow.androidrecruittest.ui.model.ListItem
 
 class ListAdapter(private val onClick: (item: ListItem, position: Int, view: View) -> Unit) :
-    androidx.recyclerview.widget.ListAdapter<ListItem, ListAdapter.ViewHolder>(DIFF_CALLBACK) {
+    androidx.recyclerview.widget.ListAdapter<ListItem, ListAdapter.ViewHolder>(
+        DIFF_CALLBACK
+    ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
-        return ViewHolder(itemView, onClick)
+        return ViewHolder(
+            itemView,
+            onClick
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =

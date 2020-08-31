@@ -24,6 +24,7 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun updateDataFromApi(): Boolean {
 
+
         val photos=downloadPhotos()
         Log.d(TAG, "updateDataFromApi: after photos ")
         val userPhotos=photos.map{ photo->
@@ -46,8 +47,7 @@ class RepositoryImpl @Inject constructor(
         }
 
 
-        userPhotoDao.clearUserPhotos()
-        userPhotoDao.insertListOfUserPhotos(userPhotos)
+        userPhotoDao.updateListOfUsers(userPhotos)
         //change for check
         return true
     }
