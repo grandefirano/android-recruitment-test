@@ -9,8 +9,8 @@ import retrofit2.http.Query
 
 interface AlbumService {
     @GET("albums/{id}")
-    suspend fun getRawAlbums(
+    suspend fun getRawAlbum(
         @Path("id")id:Int
-    ):List<RawAlbum>
+    ):RawAlbum
 
 }

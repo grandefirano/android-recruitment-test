@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dog.snow.androidrecruittest">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".RecruitTestApplication"
         android:allowBackup="true"

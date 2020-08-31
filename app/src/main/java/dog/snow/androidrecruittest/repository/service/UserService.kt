@@ -7,7 +7,7 @@ import retrofit2.http.Path
 
 interface UserService {
     @GET("users/{id}")
-    suspend fun getRawUsers(
+    suspend fun getRawUser(
         @Path("id")id:Int
-    ):List<RawUser>
+    ):RawUser
 }

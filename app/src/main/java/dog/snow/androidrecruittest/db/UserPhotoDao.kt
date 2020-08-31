@@ -15,7 +15,7 @@ interface UserPhotoDao {
     suspend fun insertUserPhoto(userPhotos:DatabaseUserPhoto)
 
     @Query("SELECT * FROM userPhotos")
-    fun getUserPhotos():DatabaseUserPhoto
+    fun getUserPhotos():List<DatabaseUserPhoto>
 
     @Query("DELETE FROM userPhotos")
     suspend fun clearUserPhotos()
