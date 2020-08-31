@@ -6,12 +6,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import dagger.hilt.android.AndroidEntryPoint
 import dog.snow.androidrecruittest.MainActivity
 import dog.snow.androidrecruittest.R
+import dog.snow.androidrecruittest.databinding.ListFragmentBinding
 
-class ListFragment : Fragment(R.layout.list_fragment){
+@AndroidEntryPoint
+class ListFragment : Fragment(){
 
-    val viewModel:ListViewModel by viewModels()
+    private val viewModel:ListViewModel by viewModels()
+
+    private val listOfResults by lazy {
+        viewModel.listOfResults
+    }
+
+    private val adapter by lazy{
+        ListAdapter{item,position,view->
+            viewModel.onItemClicked(item.id)
+
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,8 +35,17 @@ class ListFragment : Fragment(R.layout.list_fragment){
     ): View? {
         (activity as MainActivity).supportActionBar?.show()
 
+        val binding= ListFragmentBinding.inflate(inflater,container,false)
 
 
-        return super.onCreateView(inflater, container, savedInstanceState)
+        listOfResults.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+        })
+
+        binding.viewModel=viewModel
+
+        binding.rvItems.adapter
+
+        return binding.root
     }
 }

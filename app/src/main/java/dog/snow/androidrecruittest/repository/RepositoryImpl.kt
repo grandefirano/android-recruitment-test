@@ -9,6 +9,8 @@ import dog.snow.androidrecruittest.repository.model.RawUser
 import dog.snow.androidrecruittest.repository.service.AlbumService
 import dog.snow.androidrecruittest.repository.service.PhotoService
 import dog.snow.androidrecruittest.repository.service.UserService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -52,8 +54,10 @@ class RepositoryImpl @Inject constructor(
         return true
     }
 
-    suspend fun getUserPhotosFromDatabase():List<DatabaseUserPhoto>{
-        return userPhotoDao.getUserPhotos()
+    override suspend fun getUserPhotosFromDatabase():List<DatabaseUserPhoto>{
+       return withContext(Dispatchers.IO) {
+            userPhotoDao.getUserPhotos()
+        }
     }
 
 
