@@ -5,5 +5,5 @@ import dog.snow.androidrecruittest.db.DatabaseUserPhoto
 interface Repository {
 
     suspend fun updateDataFromApi():Boolean
-    suspend fun getUserPhotosFromDatabase():List<DatabaseUserPhoto>
+    suspend fun getUserPhotosFromDatabase(searchQuery:String):List<DatabaseUserPhoto>
 }

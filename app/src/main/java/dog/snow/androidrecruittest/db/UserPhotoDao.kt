@@ -18,8 +18,10 @@ interface UserPhotoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUserPhoto(userPhotos:DatabaseUserPhoto)
 
-    @Query("SELECT * FROM userPhotos")
-    fun getUserPhotos():List<DatabaseUserPhoto>
+    @Query("SELECT * FROM userPhotos WHERE photoTitle LIKE :searchQuery OR albumTitle LIKE :searchQuery")
+    fun getUserPhotos(
+        searchQuery:String="%"
+    ):List<DatabaseUserPhoto>
 
     @Query("DELETE FROM userPhotos")
     suspend fun clearUserPhotos()

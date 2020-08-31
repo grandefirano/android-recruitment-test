@@ -54,11 +54,12 @@ class RepositoryImpl @Inject constructor(
         return true
     }
 
-    override suspend fun getUserPhotosFromDatabase():List<DatabaseUserPhoto>{
-       return withContext(Dispatchers.IO) {
-            userPhotoDao.getUserPhotos()
+    override suspend fun getUserPhotosFromDatabase(searchQuery: String): List<DatabaseUserPhoto> {
+        return withContext(Dispatchers.IO) {
+            userPhotoDao.getUserPhotos(searchQuery.formatToDBFormatQuery())
         }
     }
+
 
 
     private suspend fun downloadPhotos():List<RawPhoto>{
@@ -69,5 +70,10 @@ class RepositoryImpl @Inject constructor(
     }
     private suspend fun downloadAlbum(id:Int):RawAlbum{
         return albumService.getRawAlbum(id)
+    }
+
+
+    fun String.formatToDBFormatQuery():String{
+        return "%${this.replace(' ', '%')}%"
     }
 }

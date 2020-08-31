@@ -22,6 +22,10 @@ class ListFragment : Fragment(){
         viewModel.listOfResults
     }
 
+    private val searchQuery by lazy {
+        viewModel.searchQuery
+    }
+
     private val adapter by lazy{
         ListAdapter{item,_,_->
             viewModel.onItemClicked(item.id)
@@ -37,6 +41,11 @@ class ListFragment : Fragment(){
         (activity as MainActivity).supportActionBar?.show()
 
         val binding= ListFragmentBinding.inflate(inflater,container,false)
+
+
+        searchQuery.observe(viewLifecycleOwner, Observer {query->
+            viewModel.filterList(query)
+        })
 
 
         listOfResults.observe(viewLifecycleOwner, Observer {

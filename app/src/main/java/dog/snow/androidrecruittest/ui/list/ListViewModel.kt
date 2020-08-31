@@ -32,7 +32,7 @@ class ListViewModel @ViewModelInject constructor(
 
         viewModelScope.launch {
 
-            val userPhoto=repository.getUserPhotosFromDatabase()
+            val userPhoto=repository.getUserPhotosFromDatabase(searchQuery)
             withContext(Dispatchers.Default) {
                 val listItem = userPhoto.map {
                     ListItem(
@@ -46,8 +46,6 @@ class ListViewModel @ViewModelInject constructor(
                     _listOfResults.value=listItem
                 }
             }
-
-
         }
 
     }
@@ -55,5 +53,9 @@ class ListViewModel @ViewModelInject constructor(
     fun onItemClicked(id: Int) {
         //TODO: NAVIGATION
 
+    }
+
+    fun filterList(query: String) {
+        updateFilteredListFromDatabase(query)
     }
 }
