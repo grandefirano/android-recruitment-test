@@ -14,9 +14,7 @@ class ListViewModel @ViewModelInject constructor(
     private val repository: Repository
 ):ViewModel() {
 
-    val searchQuery:LiveData<String>
-    get() = _searchQuery
-    private val _searchQuery: MutableLiveData<String> = MutableLiveData("")
+    val searchQuery: MutableLiveData<String> = MutableLiveData("")
 
     val listOfResults:LiveData<List<ListItem>>
     get() = _listOfResults

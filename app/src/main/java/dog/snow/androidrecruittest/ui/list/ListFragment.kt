@@ -1,6 +1,7 @@
 package dog.snow.androidrecruittest.ui.list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import dog.snow.androidrecruittest.databinding.ListFragmentBinding
 @AndroidEntryPoint
 class ListFragment : Fragment(){
 
+    private val TAG = "ListFragment"
     private val viewModel:ListViewModel by viewModels()
 
     private val listOfResults by lazy {
@@ -44,6 +46,7 @@ class ListFragment : Fragment(){
 
 
         searchQuery.observe(viewLifecycleOwner, Observer {query->
+            Log.d(TAG, "onCreateView:search query changed $query ")
             viewModel.filterList(query)
         })
 
