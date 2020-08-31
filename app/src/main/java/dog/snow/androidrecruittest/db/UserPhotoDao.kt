@@ -23,6 +23,11 @@ interface UserPhotoDao {
         searchQuery:String="%"
     ):List<DatabaseUserPhoto>
 
+    @Query("SELECT * FROM userPhotos WHERE photoId = :id ")
+    fun getUserPhotoById(
+        id:Int
+    ):DatabaseUserPhoto
+
     @Query("DELETE FROM userPhotos")
     suspend fun clearUserPhotos()
 }

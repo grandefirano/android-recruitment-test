@@ -9,6 +9,8 @@ import dog.snow.androidrecruittest.repository.model.RawUser
 import dog.snow.androidrecruittest.repository.service.AlbumService
 import dog.snow.androidrecruittest.repository.service.PhotoService
 import dog.snow.androidrecruittest.repository.service.UserService
+import dog.snow.androidrecruittest.ui.details.Detail
+import dog.snow.androidrecruittest.ui.list.ListItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -28,13 +30,13 @@ class RepositoryImpl @Inject constructor(
 
 
         val photos=downloadPhotos()
-        Log.d(TAG, "updateDataFromApi: after photos ")
+
         val userPhotos=photos.map{ photo->
-            Log.d(TAG, "updateDataFromApi: after photo ${photo.id}")
+
             val album=downloadAlbum(photo.albumId)
-            Log.d(TAG, "updateDataFromApi: after album ${photo.albumId}")
+
             val user=downloadUser(album.userId)
-            Log.d(TAG, "updateDataFromApi: after user ${album.userId} ")
+
 
             DatabaseUserPhoto(
                 photoId =photo.id,
@@ -54,13 +56,19 @@ class RepositoryImpl @Inject constructor(
         return true
     }
 
-    override suspend fun getUserPhotosFromDatabase(searchQuery: String): List<DatabaseUserPhoto> {
+    override suspend fun getListItemsFromDatabase(searchQuery: String): List<ListItem> {
         return withContext(Dispatchers.IO) {
-            userPhotoDao.getUserPhotos(searchQuery.formatToDBFormatQuery())
+           val userPhoto= userPhotoDao.getUserPhotos(searchQuery.formatToDBFormatQuery())
+             userPhoto.mapToListItems()
         }
     }
 
-
+    override suspend fun getDetailsFromDatabase(id: Int):Detail {
+        return withContext(Dispatchers.IO) {
+            val userPhoto= userPhotoDao.getUserPhotoById(id)
+           userPhoto.toDetail()
+        }
+    }
 
     private suspend fun downloadPhotos():List<RawPhoto>{
        return photoService.getRawPhotos()
@@ -72,6 +80,32 @@ class RepositoryImpl @Inject constructor(
         return albumService.getRawAlbum(id)
     }
 
+    private suspend fun DatabaseUserPhoto.toDetail():Detail{
+        return withContext(Dispatchers.Default) {
+            this@toDetail.run {
+                Detail(photoId = photoId,
+                    photoTitle = photoTitle,
+                    albumTitle = albumTitle,
+                    username = username,
+                    email = email,
+                    phone = phone,
+                    url = url)
+            }
+        }
+    }
+
+    private suspend fun List<DatabaseUserPhoto>.mapToListItems():List<ListItem> {
+        return withContext(Dispatchers.Default) {
+            this@mapToListItems.map {
+                ListItem(
+                    id = it.photoId,
+                    title = it.photoTitle,
+                    albumTitle = it.albumTitle,
+                    thumbnailUrl = it.thumbnailUrl
+                )
+            }
+        }
+    }
 
     fun String.formatToDBFormatQuery():String{
         return "%${this.replace(' ', '%')}%"

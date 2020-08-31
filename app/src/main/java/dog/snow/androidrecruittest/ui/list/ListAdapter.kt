@@ -8,37 +8,40 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import dog.snow.androidrecruittest.R
+import dog.snow.androidrecruittest.databinding.ListItemBinding
 
-class ListAdapter(private val onClick: (item: ListItem, position: Int, view: View) -> Unit) :
+class ListAdapter(private val clickListener: PhotoItemClickListener) :
     androidx.recyclerview.widget.ListAdapter<ListItem, ListAdapter.ViewHolder>(
         DIFF_CALLBACK
     ) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
-        return ViewHolder(
-            itemView,
-            onClick
-        )
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int
+    ): ViewHolder =
+        ViewHolder.from(parent)
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(getItem(position))
+        holder.bind(getItem(position),clickListener)
 
-    class ViewHolder(
-        itemView: View,
-        private val onClick: (item: ListItem, position: Int, view: View) -> Unit
-    ) :
-        RecyclerView.ViewHolder(itemView) {
-        fun bind(item: ListItem) = with(itemView) {
-            val ivThumb: ImageView = findViewById(R.id.iv_thumb)
-            val tvTitle: TextView = findViewById(R.id.tv_photo_title)
-            val tvAlbumTitle: TextView = findViewById(R.id.tv_album_title)
-            tvTitle.text = item.title
-            tvAlbumTitle.text = item.albumTitle
-            //TODO: display item.thumbnailUrl in ivThumb
-            setOnClickListener { onClick(item, adapterPosition, this) }
+    class ViewHolder private constructor(
+        private val binding:ListItemBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: ListItem, clickListener: PhotoItemClickListener){
+
+            binding.listItem=item
+            binding.clickListener=clickListener
+            binding.executePendingBindings()
+
         }
+
+        companion object{
+            fun from(parent: ViewGroup):ViewHolder{
+                val layoutInflater=LayoutInflater.from(parent.context)
+                val binding=ListItemBinding.inflate(layoutInflater,parent,false)
+                return ViewHolder(binding)
+            }
+        }
+
     }
 
     companion object {
@@ -50,4 +53,7 @@ class ListAdapter(private val onClick: (item: ListItem, position: Int, view: Vie
                 oldItem == newItem
         }
     }
+}
+class PhotoItemClickListener(private val clickListener: (item: ListItem) -> Unit){
+    fun onClick(item: ListItem)= clickListener(item)
 }

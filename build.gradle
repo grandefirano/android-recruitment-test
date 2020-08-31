@@ -31,6 +31,7 @@ ext{
     hilt_version="2.28-alpha"
     androidx_hilt_version="1.0.0-alpha02"
     moshi_version = "1.6.0"
+
 }
 
 task clean(type: Delete) {

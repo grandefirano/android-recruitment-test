@@ -2,11 +2,12 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="details"
+            type="dog.snow.androidrecruittest.ui.details.Detail" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
