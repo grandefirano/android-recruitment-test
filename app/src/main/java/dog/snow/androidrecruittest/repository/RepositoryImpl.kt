@@ -15,6 +15,9 @@ class RepositoryImpl @Inject constructor(
 ) : Repository {
     override suspend fun updateDataFromApi(): Boolean {
 
+        val albums=downloadAlbums()
+        val users=downloadUsers()
+        val photos=downloadPhotos()
 
 
         return true

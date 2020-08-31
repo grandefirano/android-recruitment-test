@@ -5,9 +5,7 @@ import retrofit2.http.GET
 
 interface PhotoService {
 
-    @GET()
-    suspend fun getRawPhotos(
-
-    )
+    @GET("photos")
+    suspend fun getRawPhotos():List<RawPhoto>
 
 }
