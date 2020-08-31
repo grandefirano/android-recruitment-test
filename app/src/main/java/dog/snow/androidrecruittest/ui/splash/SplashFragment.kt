@@ -12,6 +12,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import dog.snow.androidrecruittest.R
 import dog.snow.androidrecruittest.MainActivity
+import kotlinx.android.synthetic.main.layout_progressbar.*
+import kotlinx.android.synthetic.main.layout_progressbar.view.*
+
 @AndroidEntryPoint
 class SplashFragment: Fragment(R.layout.splash_fragment) {
 
@@ -29,11 +32,17 @@ class SplashFragment: Fragment(R.layout.splash_fragment) {
     ): View? {
         (activity as MainActivity).supportActionBar?.hide()
 
-
         observeNavigationState()
 
         return super.onCreateView(inflater, container, savedInstanceState)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        progressbar.visibility=View.VISIBLE
+    }
+
 
     private fun observeNavigationState() {
         viewModel.navigateToListFragment.observe(viewLifecycleOwner, Observer { event->

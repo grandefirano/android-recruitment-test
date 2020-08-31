@@ -20,10 +20,15 @@ class ListViewModel @ViewModelInject constructor(
 
     val listOfResults:LiveData<List<ListItem>>
     get() = _listOfResults
-    private val _listOfResults:MutableLiveData<List<ListItem>> = MutableLiveData()
+    private val _listOfResults:MutableLiveData<List<ListItem>> by lazy{
+       MutableLiveData<List<ListItem>>()
+    }
 
+    init {
+        updateFilteredListFromDatabase()
+    }
 
-    fun updateFilteredListFromDatabase(searchQuery:String=""){
+    private fun updateFilteredListFromDatabase(searchQuery:String=""){
 
         viewModelScope.launch {
 

@@ -36,6 +36,7 @@
 
     <include
         layout="@layout/layout_empty_view"
+        android:id="@+id/empty_view"
         tools:visibility="gone" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
