@@ -7,4 +7,5 @@
     <color name="background_color">#424242</color>
     <color name="surface_color">#1b1b1b</color>
     <color name="splash_bg">@color/sd_color_black</color>
+
 </resources>

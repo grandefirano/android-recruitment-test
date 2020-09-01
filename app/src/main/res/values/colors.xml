@@ -10,7 +10,7 @@
     <color name="splash_bg">@color/sd_color_white</color>
 
     <color name="sd_color_white">#F6FAFD</color>
-    <color name="sd_color_black">#181718</color>
+    <color name="sd_color_black">#191818</color>
     <color name="sd_color_white_mask">#F4F6FAFD</color>
     <color name="sd_color_black_mask">#F4181718</color>
 </resources>

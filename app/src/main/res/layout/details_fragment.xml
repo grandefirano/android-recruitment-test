@@ -10,12 +10,17 @@
             type="dog.snow.androidrecruittest.ui.details.DetailsViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/margin_normal">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
 
         <ImageView
+            style="@style/AppTheme.PlaceHolder"
             android:id="@+id/iv_photo"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -82,4 +87,5 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_email"
             tools:text="123-456-789" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

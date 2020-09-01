@@ -9,7 +9,7 @@ import kotlinx.coroutines.*
 
 class SplashViewModel @ViewModelInject constructor(
     private val repository: Repository
-):ViewModel() {
+) : ViewModel() {
 
 
     private val _navigateToListFragment = MutableLiveData<Event<Boolean>>()
@@ -21,21 +21,27 @@ class SplashViewModel @ViewModelInject constructor(
         get() = _showError
 
 
-    fun navigateToList(){
-        _navigateToListFragment.value= Event(true)
+    fun navigateToList() {
+        _navigateToListFragment.value = Event(true)
     }
 
-    fun updateCache(){
+    fun tryAgain() {
+        clearErrorMessage()
+        updateCache()
+    }
+
+    fun updateCache() {
+
         viewModelScope.launch {
 
-            val result=repository.updateDataFromApi()
+            val result = repository.updateDataFromApi()
 
-            when(result){
-                is CacheResult.Error->{
+            when (result) {
+                is CacheResult.Error -> {
                     showError(result.exception)
                 }
-                is CacheResult.Success->{
-                    withContext(Dispatchers.Main){
+                is CacheResult.Success -> {
+                    withContext(Dispatchers.Main) {
                         navigateToList()
                     }
                 }
@@ -44,6 +50,10 @@ class SplashViewModel @ViewModelInject constructor(
     }
 
     private fun showError(exception: Exception) {
-        _showError.value=exception.localizedMessage
+        _showError.value = exception.localizedMessage
+    }
+
+    private fun clearErrorMessage() {
+        _showError.value = null
     }
 }

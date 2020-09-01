@@ -1,6 +1,7 @@
 package dog.snow.androidrecruittest.ui.splash
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.layout_progressbar.view.*
 class SplashFragment: Fragment(R.layout.splash_fragment) {
 
     val viewModel:SplashViewModel by viewModels()
+    private val TAG = "SplashFragment"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +63,14 @@ class SplashFragment: Fragment(R.layout.splash_fragment) {
     }
     private fun observeErrorState() {
         viewModel.showError.observe(viewLifecycleOwner, Observer {message->
-            showError(message)
+               if(message!==null){
+                    showError(message)
+                   progressbar.isVisible=false
+                }else{
+                   progressbar.isVisible=true
+               }
+
+
         })
     }
 
@@ -70,7 +79,7 @@ class SplashFragment: Fragment(R.layout.splash_fragment) {
         MaterialAlertDialogBuilder(requireActivity())
             .setTitle(R.string.cant_download_dialog_title)
             .setMessage(getString(R.string.cant_download_dialog_message, errorMessage))
-            .setPositiveButton(R.string.cant_download_dialog_btn_positive) { _, _ -> viewModel.updateCache() }
+            .setPositiveButton(R.string.cant_download_dialog_btn_positive) { _, _ -> viewModel.tryAgain() }
             .setNegativeButton(R.string.cant_download_dialog_btn_negative) { _, _ -> closeActivity() }
             .create()
             .apply { setCanceledOnTouchOutside(false) }

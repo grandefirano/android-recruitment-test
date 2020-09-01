@@ -24,7 +24,7 @@
     </style>
 
     <style name="AppTheme.PlaceHolder" parent="@style/Widget.MaterialComponents.ShapeableImageView">
-        <item name="srcCompat">@drawable/ic_placeholder_dark</item>
+        <item name="background">@drawable/ic_placeholder</item>
     </style>
 
 </resources>
