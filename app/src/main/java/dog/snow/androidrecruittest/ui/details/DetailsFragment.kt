@@ -8,14 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 import dog.snow.androidrecruittest.MainActivity
 import dog.snow.androidrecruittest.R
 import dog.snow.androidrecruittest.databinding.DetailsFragmentBinding
 
-class DetailsFragment : Fragment(R.layout.details_fragment){
+@AndroidEntryPoint
+class DetailsFragment : Fragment(){
 
 
-    val viewModel:DetailsViewModel by viewModels()
+    private val viewModel:DetailsViewModel by viewModels()
 
     val details by lazy {
         viewModel.details
@@ -33,6 +36,8 @@ class DetailsFragment : Fragment(R.layout.details_fragment){
 
 
         val binding=DetailsFragmentBinding.inflate(inflater,container,false)
+        binding.lifecycleOwner=this
+        binding.viewModel=viewModel
 
         return binding.root
     }

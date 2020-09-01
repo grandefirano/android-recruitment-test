@@ -28,30 +28,33 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun updateDataFromApi(): Boolean {
 
+        try {
+            val photos = downloadPhotos()
 
-        val photos=downloadPhotos()
+            val userPhotos = photos.map { photo ->
 
-        val userPhotos=photos.map{ photo->
+                val album = downloadAlbum(photo.albumId)
 
-            val album=downloadAlbum(photo.albumId)
-
-            val user=downloadUser(album.userId)
+                val user = downloadUser(album.userId)
 
 
-            DatabaseUserPhoto(
-                photoId =photo.id,
-                photoTitle = photo.title,
-                albumTitle = album.title,
-                thumbnailUrl = photo.thumbnailUrl,
-                email = user.email,
-                phone = user.phone,
-                url = photo.url,
-                username = user.username
-            )
+                DatabaseUserPhoto(
+                    photoId = photo.id,
+                    photoTitle = photo.title,
+                    albumTitle = album.title,
+                    thumbnailUrl = photo.thumbnailUrl,
+                    email = user.email,
+                    phone = user.phone,
+                    url = photo.url,
+                    username = user.username
+                )
+            }
+
+
+            userPhotoDao.updateListOfUsers(userPhotos)
+        }catch (e:Exception){
+            Log.e(TAG, "updateDataFromApi: exception",e )
         }
-
-
-        userPhotoDao.updateListOfUsers(userPhotos)
         //change for check
         return true
     }
