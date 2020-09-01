@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -12,6 +13,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import dog.snow.androidrecruittest.R
 import dog.snow.androidrecruittest.MainActivity
+import kotlinx.android.synthetic.main.layout_appbar.*
 import kotlinx.android.synthetic.main.layout_progressbar.*
 import kotlinx.android.synthetic.main.layout_progressbar.view.*
 
@@ -30,7 +32,7 @@ class SplashFragment: Fragment(R.layout.splash_fragment) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (activity as MainActivity).supportActionBar?.hide()
+        (activity as MainActivity).appbar.isVisible=false
 
         observeNavigationState()
         observeErrorState()

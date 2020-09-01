@@ -2,7 +2,7 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/banner"
-    style="@style/Widget.AppTheme.Banner"
+    style="@style/AppTheme.Banner"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="@string/offline_mode"

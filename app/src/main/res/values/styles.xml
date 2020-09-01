@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Widget.AppTheme.AppBar" parent="@style/Widget.Design.AppBarLayout" />
+    <style name="Widget.AppTheme.AppBar" parent="@style/Widget.Design.AppBarLayout" >
 
-    <style name="Widget.AppTheme.Banner" parent="@style/Widget.MaterialComponents.TextView" />
+        <item name="backgroundColor">@color/primary_color</item>
+    </style>
+
+    <style name="AppTheme.Banner" parent="@style/Widget.MaterialComponents.TextView" >
+        <item name="android:textColor">@color/error_color</item>
+        <item name="android:background">@color/accent_color</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:padding">5dp</item>
+    </style>
 </resources>

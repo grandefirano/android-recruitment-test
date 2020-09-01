@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import dog.snow.androidrecruittest.MainActivity
 import dog.snow.androidrecruittest.databinding.ListFragmentBinding
+import kotlinx.android.synthetic.main.layout_appbar.*
 
 @AndroidEntryPoint
 class ListFragment : Fragment(){
@@ -39,7 +41,7 @@ class ListFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (activity as MainActivity).supportActionBar?.show()
+        (activity as MainActivity).appbar.isVisible=true
 
         val binding= ListFragmentBinding.inflate(inflater,container,false)
 
@@ -48,8 +50,7 @@ class ListFragment : Fragment(){
         setRecyclerViewAndAdapter(binding)
 
         //TODO: make logic
-        binding.rvItems.visibility=View.VISIBLE
-        binding.emptyView.tvEmpty.visibility=View.GONE
+
 
         return binding.root
     }
@@ -74,14 +75,17 @@ class ListFragment : Fragment(){
     }
 
     private fun setRecyclerViewAndAdapter(binding: ListFragmentBinding) {
-        listOfResults.observe(viewLifecycleOwner, Observer {
+        listOfResults.observe(viewLifecycleOwner, Observer {items->
 
-            adapter.submitList(it)
+            items?.let {
+                adapter.submitList(items)
+
+                binding.rvItems.isVisible = items.isNotEmpty()
+                binding.emptyView.tvEmpty.isVisible = items.isEmpty()
+            }
         })
 
         binding.viewModel=viewModel
-
-
         binding.rvItems.adapter=adapter
         binding.rvItems.layoutManager=LinearLayoutManager(context)
 
