@@ -3,6 +3,8 @@ package dog.snow.androidrecruittest
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -23,44 +25,29 @@ class MainActivity : AppCompatActivity(R.layout.main_activity){
 
         registerConectivityCallback()
 
-
     }
 
     private fun registerConectivityCallback() {
         val cm = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
-        cm.registerDefaultNetworkCallback(NetworkCallback{ connected ->
+        cm.registerDefaultNetworkCallback(ConnectivityCallback{ connected ->
             Log.d(TAG, "registerConectivityCallback:$connected ")
 
             CoroutineScope(Dispatchers.Main).launch{
                 banner.isVisible=!connected
             }
         })
-
     }
 
-    class NetworkCallback(val notifyConnectedState:(connected:Boolean)->Unit): ConnectivityManager.NetworkCallback() {
-        override fun onAvailable(network: Network) {
-            notifyConnectedState(true)
-            //I think I need to find the connected SSID in here.
+    class ConnectivityCallback(val notifyConnectedState:(connected:Boolean)->Unit) : ConnectivityManager.NetworkCallback() {
+        override fun onCapabilitiesChanged(network: Network, capabilities: NetworkCapabilities) {
+            val connected = capabilities.hasCapability(NET_CAPABILITY_INTERNET)
+            notifyConnectedState(connected)
         }
 
         override fun onLost(network: Network) {
             notifyConnectedState(false)
         }
+
     }
-
-//    class ConnectivityCallback(val notifyConnectedState:(connected:Boolean)->Unit) : ConnectivityManager.NetworkCallback() {
-//        override fun onCapabilitiesChanged(network: Network, capabilities: NetworkCapabilities) {
-//            val connected = capabilities.hasCapability(NET_CAPABILITY_INTERNET)
-//            notifyConnectedState(connected)
-//        }
-//
-//        override fun onLost(network: Network) {
-//            notifyConnectedState(false)
-//        }
-//
-//    }
-
-
 
 }

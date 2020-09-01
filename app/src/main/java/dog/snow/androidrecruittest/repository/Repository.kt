@@ -6,7 +6,7 @@ import dog.snow.androidrecruittest.ui.list.ListItem
 
 interface Repository {
 
-    suspend fun updateDataFromApi():Boolean
+    suspend fun updateDataFromApi():CacheResult
     suspend fun getListItemsFromDatabase(searchQuery:String):List<ListItem>
     suspend fun getDetailsFromDatabase(id:Int):Detail
 }

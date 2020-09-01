@@ -13,6 +13,7 @@ import dog.snow.androidrecruittest.ui.details.Detail
 import dog.snow.androidrecruittest.ui.list.ListItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.Cache
 import javax.inject.Inject
 
 
@@ -26,7 +27,7 @@ class RepositoryImpl @Inject constructor(
     private val TAG = "RepositoryImpl"
     private val userPhotoDao=database.userPhotoDao()
 
-    override suspend fun updateDataFromApi(): Boolean {
+    override suspend fun updateDataFromApi(): CacheResult {
 
         try {
             val photos = downloadPhotos()
@@ -50,13 +51,12 @@ class RepositoryImpl @Inject constructor(
                 )
             }
 
-
             userPhotoDao.updateListOfUsers(userPhotos)
+            return CacheResult.Success
         }catch (e:Exception){
             Log.e(TAG, "updateDataFromApi: exception",e )
+            return CacheResult.Error(e)
         }
-        //change for check
-        return true
     }
 
     override suspend fun getListItemsFromDatabase(searchQuery: String): List<ListItem> {
@@ -113,4 +113,10 @@ class RepositoryImpl @Inject constructor(
     fun String.formatToDBFormatQuery():String{
         return "%${this.replace(' ', '%')}%"
     }
+}
+
+
+sealed class CacheResult{
+    object Success:CacheResult()
+    data class Error(val exception:Exception):CacheResult()
 }

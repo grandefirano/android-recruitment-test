@@ -33,9 +33,12 @@ class SplashFragment: Fragment(R.layout.splash_fragment) {
         (activity as MainActivity).supportActionBar?.hide()
 
         observeNavigationState()
+        observeErrorState()
 
         return super.onCreateView(inflater, container, savedInstanceState)
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,13 +57,18 @@ class SplashFragment: Fragment(R.layout.splash_fragment) {
 
         })
     }
+    private fun observeErrorState() {
+        viewModel.showError.observe(viewLifecycleOwner, Observer {message->
+            showError(message)
+        })
+    }
 
 
     private fun showError(errorMessage: String?) {
         MaterialAlertDialogBuilder(requireActivity())
             .setTitle(R.string.cant_download_dialog_title)
             .setMessage(getString(R.string.cant_download_dialog_message, errorMessage))
-            .setPositiveButton(R.string.cant_download_dialog_btn_positive) { _, _ -> /*tryAgain()*/ }
+            .setPositiveButton(R.string.cant_download_dialog_btn_positive) { _, _ -> viewModel.updateCache() }
             .setNegativeButton(R.string.cant_download_dialog_btn_negative) { _, _ -> closeActivity() }
             .create()
             .apply { setCanceledOnTouchOutside(false) }
