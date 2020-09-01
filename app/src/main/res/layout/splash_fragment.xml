@@ -11,25 +11,25 @@
         android:id="@+id/iv_logo_sd_symbol"
         android:layout_width="@dimen/splash_logo_sd_symbol"
         android:layout_height="@dimen/splash_logo_sd_symbol"
+        style="@style/AppTheme.LogoSymbol"
         android:contentDescription="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/iv_logo_sd_text"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_logo_sd_symbol" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/iv_logo_sd_text"
         android:layout_width="@dimen/splash_logo_sd_text_width"
         android:layout_height="@dimen/splash_logo_sd_text_height"
         android:layout_marginStart="@dimen/splash_logo_sd_text_margin"
+        style="@style/AppTheme.LogoText"
         android:contentDescription="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_logo_sd_symbol"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_logo_sd_text" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <include
         layout="@layout/layout_progressbar"

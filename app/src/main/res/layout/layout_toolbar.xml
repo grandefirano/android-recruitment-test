@@ -7,4 +7,5 @@
     android:layout_gravity="center_horizontal"
     android:fitsSystemWindows="true"
     app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-    app:logo="@drawable/ic_logo_appbar" />
+    app:titleMarginStart="@dimen/margin_xlarge"
+    style="@style/Widget.AppTheme.Toolbar" />

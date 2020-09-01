@@ -6,7 +6,7 @@
     </style>
 
     <style name="Widget.AppTheme.Toolbar" parent="Widget.MaterialComponents.Toolbar">
-        <item name="logo">@drawable/ic_logo_sd_symbol</item>
+        <item name="logo">@drawable/ic_logo_sd_symbol_dark</item>
     </style>
 
     <style name="Widget.AppTheme.Banner" parent="@style/Widget.MaterialComponents.TextView" >
@@ -17,14 +17,14 @@
 
 
     <style name="AppTheme.LogoSymbol" parent="@style/Widget.MaterialComponents.ShapeableImageView">
-        <item name="srcCompat">@drawable/ic_logo_sd_symbol</item>
+        <item name="srcCompat">@drawable/ic_logo_sd_symbol_dark</item>
     </style>
     <style name="AppTheme.LogoText" parent="@style/Widget.MaterialComponents.ShapeableImageView">
-        <item name="srcCompat">@drawable/ic_logo_sd_text</item>
+        <item name="srcCompat">@drawable/ic_logo_sd_text_dark</item>
     </style>
 
     <style name="AppTheme.PlaceHolder" parent="@style/Widget.MaterialComponents.ShapeableImageView">
-        <item name="srcCompat">@drawable/ic_placeholder</item>
+        <item name="srcCompat">@drawable/ic_placeholder_dark</item>
     </style>
 
 </resources>
