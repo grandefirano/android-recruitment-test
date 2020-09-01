@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.EntryPoint
@@ -35,6 +36,10 @@ class DetailsFragment : Fragment(){
 
         val args:DetailsFragmentArgs by navArgs()
         viewModel.setDetailsFromDatabase(args.id)
+
+        details.observe(viewLifecycleOwner, Observer {details->
+            (activity as MainActivity).title=details.photoTitle
+        })
 
 
         val binding=DetailsFragmentBinding.inflate(inflater,container,false)

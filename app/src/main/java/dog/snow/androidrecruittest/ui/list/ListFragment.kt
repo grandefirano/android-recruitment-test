@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import dog.snow.androidrecruittest.MainActivity
+import dog.snow.androidrecruittest.R
 import dog.snow.androidrecruittest.databinding.ListFragmentBinding
 import kotlinx.android.synthetic.main.layout_appbar.*
 
@@ -42,6 +43,7 @@ class ListFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         (activity as MainActivity).appbar.isVisible=true
+        (activity as MainActivity).title=getString(R.string.app_name)
 
         val binding= ListFragmentBinding.inflate(inflater,container,false)
 
