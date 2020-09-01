@@ -14,6 +14,8 @@ import dog.snow.androidrecruittest.ui.list.ListItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.Cache
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 
 
@@ -28,34 +30,23 @@ class RepositoryImpl @Inject constructor(
     private val userPhotoDao=database.userPhotoDao()
 
     override suspend fun updateDataFromApi(): CacheResult {
+        return withContext(Dispatchers.IO) {
+            try {
+                val photos = downloadPhotos()
+                val databaseUserPhotos = photos.map { photo ->
 
-        try {
-            val photos = downloadPhotos()
+                    val album = downloadAlbum(photo.albumId)
+                    val user = downloadUser(album.userId)
 
-            val userPhotos = photos.map { photo ->
+                    createDatabaseUserPhoto(photo, user, album)
+                }
 
-                val album = downloadAlbum(photo.albumId)
-
-                val user = downloadUser(album.userId)
-
-
-                DatabaseUserPhoto(
-                    photoId = photo.id,
-                    photoTitle = photo.title,
-                    albumTitle = album.title,
-                    thumbnailUrl = photo.thumbnailUrl,
-                    email = user.email,
-                    phone = user.phone,
-                    url = photo.url,
-                    username = user.username
-                )
+                userPhotoDao.updateListOfUsers(databaseUserPhotos)
+                CacheResult.Success
+            } catch (e: Exception) {
+                Log.e(TAG, "updateDataFromApi: exception", e)
+                CacheResult.Error(e)
             }
-
-            userPhotoDao.updateListOfUsers(userPhotos)
-            return CacheResult.Success
-        }catch (e:Exception){
-            Log.e(TAG, "updateDataFromApi: exception",e )
-            return CacheResult.Error(e)
         }
     }
 
@@ -77,12 +68,31 @@ class RepositoryImpl @Inject constructor(
        return photoService.getRawPhotos()
     }
     private suspend fun downloadUser(id:Int):RawUser{
+
         return userService.getRawUser(id)
     }
     private suspend fun downloadAlbum(id:Int):RawAlbum{
         return albumService.getRawAlbum(id)
     }
 
+    private suspend fun createDatabaseUserPhoto(
+        photo:RawPhoto,
+        user:RawUser,
+        album: RawAlbum
+    ):DatabaseUserPhoto{
+        return withContext(Dispatchers.Default) {
+            DatabaseUserPhoto(
+                photoId = photo.id,
+                photoTitle = photo.title,
+                albumTitle = album.title,
+                thumbnailUrl = photo.thumbnailUrl,
+                email = user.email,
+                phone = user.phone,
+                url = photo.url,
+                username = user.username
+            )
+        }
+    }
     private suspend fun DatabaseUserPhoto.toDetail():Detail{
         return withContext(Dispatchers.Default) {
             this@toDetail.run {
