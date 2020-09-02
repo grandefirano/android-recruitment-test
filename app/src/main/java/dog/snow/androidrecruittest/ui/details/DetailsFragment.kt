@@ -65,6 +65,9 @@ class DetailsFragment : Fragment() {
             supportActionBar?.setDisplayUseLogoEnabled(false)
             appbar.toolbar.titleMarginStart = resources.getDimensionPixelSize(R.dimen.margin_normal)
             appbar.setExpanded(true, true)
+            appbar.toolbar.setNavigationOnClickListener{
+                onBackPressed()
+            }
         }
 
     }

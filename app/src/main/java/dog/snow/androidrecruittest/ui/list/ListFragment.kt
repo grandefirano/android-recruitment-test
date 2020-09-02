@@ -60,10 +60,11 @@ class ListFragment : Fragment() {
     private fun initActionBar() {
         (activity as MainActivity).apply {
             appbar.isVisible = true
-            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
             title = getString(R.string.app_name)
             supportActionBar?.setLogo(getDrawable(R.drawable.ic_logo_sd_symbol))
             supportActionBar?.setDisplayUseLogoEnabled(true)
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
             appbar.toolbar.titleMarginStart = resources.getDimensionPixelSize(R.dimen.margin_xlarge)
         }
     }

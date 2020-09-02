@@ -8,4 +8,6 @@
     <string name="cant_download_dialog_message">Can\'t download data because of error:\n%s\nCheck your internet connection.</string>
     <string name="cant_download_dialog_btn_positive">Try again</string>
     <string name="cant_download_dialog_btn_negative">Close</string>
+    <string name="preference_last_update_key">lastupdate</string>
+    <string name="last_update_key">last_update_key</string>
 </resources>

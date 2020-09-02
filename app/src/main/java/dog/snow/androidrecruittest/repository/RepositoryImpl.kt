@@ -13,9 +13,6 @@ import dog.snow.androidrecruittest.ui.details.Detail
 import dog.snow.androidrecruittest.ui.list.ListItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.Cache
-import retrofit2.HttpException
-import java.io.IOException
 import javax.inject.Inject
 
 
@@ -23,13 +20,14 @@ class RepositoryImpl @Inject constructor(
     private val albumService:AlbumService,
     private val photoService: PhotoService,
     private val userService: UserService,
-    database: LocalDatabase
+    database: LocalDatabase,
+    preferenceProvider: PreferenceProvider
 ) : Repository {
 
     private val TAG = "RepositoryImpl"
     private val userPhotoDao=database.userPhotoDao()
 
-    override suspend fun updateDataFromApi(): CacheResult {
+    override suspend fun updateDataFromApi(): CacheUpdateResult {
         return withContext(Dispatchers.IO) {
             try {
                 val photos = downloadPhotos()
@@ -42,10 +40,10 @@ class RepositoryImpl @Inject constructor(
                 }
 
                 userPhotoDao.updateListOfUsers(databaseUserPhotos)
-                CacheResult.Success
+                CacheUpdateResult.Success
             } catch (e: Exception) {
                 Log.e(TAG, "updateDataFromApi: exception", e)
-                CacheResult.Error(e)
+                CacheUpdateResult.Error(e)
             }
         }
     }
@@ -126,7 +124,7 @@ class RepositoryImpl @Inject constructor(
 }
 
 
-sealed class CacheResult{
-    object Success:CacheResult()
-    data class Error(val exception:Exception):CacheResult()
+sealed class CacheUpdateResult{
+    object Success:CacheUpdateResult()
+    data class Error(val exception:Exception):CacheUpdateResult()
 }

@@ -31,16 +31,9 @@ class MainActivity : AppCompatActivity(R.layout.main_activity){
         setSupportActionBar(findViewById(R.id.toolbar))
 
         registerConnectivityCallback()
-//
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-//        val navController = navHostFragment.navController
-//        setupActionBar(navController)
 
-    }
 
-    private fun setupActionBar(navController: NavController){
-        val appBarConfiguration= AppBarConfiguration(navController.graph)
-        toolbar.setupWithNavController(navController,appBarConfiguration)
+
     }
 
     private fun registerConnectivityCallback() {

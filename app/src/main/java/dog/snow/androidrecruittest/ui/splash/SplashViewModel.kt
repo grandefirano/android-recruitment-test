@@ -3,7 +3,7 @@ package dog.snow.androidrecruittest.ui.splash
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import dog.snow.androidrecruittest.Event
-import dog.snow.androidrecruittest.repository.CacheResult
+import dog.snow.androidrecruittest.repository.CacheUpdateResult
 import dog.snow.androidrecruittest.repository.Repository
 import kotlinx.coroutines.*
 
@@ -37,16 +37,25 @@ class SplashViewModel @ViewModelInject constructor(
             val result = repository.updateDataFromApi()
 
             when (result) {
-                is CacheResult.Error -> {
-                    showError(result.exception)
-                }
-                is CacheResult.Success -> {
-                    withContext(Dispatchers.Main) {
+                is CacheUpdateResult.Error -> {
+                    if(lastUpdateInLessThanTenMinutes()){
                         navigateToList()
+                    }else {
+                        showError(result.exception)
                     }
+                }
+                is CacheUpdateResult.Success -> {
+
+                        navigateToList()
+
                 }
             }
         }
+    }
+
+    private fun lastUpdateInLessThanTenMinutes(): Boolean {
+
+       return true
     }
 
     private fun showError(exception: Exception) {

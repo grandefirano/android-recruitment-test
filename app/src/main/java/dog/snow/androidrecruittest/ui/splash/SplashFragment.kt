@@ -1,5 +1,6 @@
 package dog.snow.androidrecruittest.ui.splash
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -26,6 +27,7 @@ class SplashFragment: Fragment(R.layout.splash_fragment) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         viewModel.updateCache()
     }
 
@@ -39,6 +41,7 @@ class SplashFragment: Fragment(R.layout.splash_fragment) {
         observeNavigationState()
         observeErrorState()
 
+
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -47,7 +50,7 @@ class SplashFragment: Fragment(R.layout.splash_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        progressbar.visibility=View.VISIBLE
+        progressbar.isVisible=true
     }
 
 
