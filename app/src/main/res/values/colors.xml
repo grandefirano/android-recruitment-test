@@ -8,6 +8,8 @@
     <color name="background_color">#ffffff</color>
     <color name="surface_color">#f5f5f5</color>
     <color name="splash_bg">@color/sd_color_white</color>
+    <color name="font_button">#eee</color>
+    <color name="font_background">#222</color>
 
     <color name="sd_color_white">#F6FAFD</color>
     <color name="sd_color_black">#191818</color>

@@ -27,4 +27,8 @@
         <item name="background">@drawable/ic_placeholder</item>
     </style>
 
+    <style name="AppTheme.Button" parent="Widget.MaterialComponents.Button.OutlinedButton">
+
+    </style>
+
 </resources>

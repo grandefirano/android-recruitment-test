@@ -75,20 +75,25 @@ class DetailsFragment : Fragment() {
         ViewCompat.setTransitionName(binding.tvPhotoTitle, "title_${args.id}")
         ViewCompat.setTransitionName(binding.ivPhoto, "image_${args.id}")
 
-        val leftAnim = AnimationUtils.loadAnimation(context, R.anim.slide_in_left)
         val rightAnim = AnimationUtils.loadAnimation(context, R.anim.slide_in_right)
         rightAnim.let{
+            tv_email.animation=it
+            tv_email_label.animation=it
             iv_email_icon.animation = it
+            tv_phone.animation=it
+            tv_phone_label.animation=it
             iv_phone_icon.animation = it
+            tv_username.animation=it
+            tv_username_label.animation=it
             iv_username_icon.animation = it
+            tv_album_title.animation=it
+            tv_album_title_label.animation=it
             iv_album_title_icon.animation = it
-            tv_username.animation = it
-        }
-
-        leftAnim.let {
             tv_album_title.animation = it
             bt_more.animation = it
         }
+
+
     }
 
     private fun initActionBar() {
