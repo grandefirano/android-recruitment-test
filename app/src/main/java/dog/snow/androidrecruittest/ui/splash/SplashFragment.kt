@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,6 +16,7 @@ import dog.snow.androidrecruittest.R
 import dog.snow.androidrecruittest.MainActivity
 import kotlinx.android.synthetic.main.layout_appbar.*
 import kotlinx.android.synthetic.main.layout_progressbar.*
+import kotlinx.android.synthetic.main.splash_fragment.*
 
 @AndroidEntryPoint
 class SplashFragment: Fragment(R.layout.splash_fragment) {
@@ -39,6 +41,8 @@ class SplashFragment: Fragment(R.layout.splash_fragment) {
         observeErrorState()
 
 
+
+
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -47,6 +51,10 @@ class SplashFragment: Fragment(R.layout.splash_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val leftAnim=AnimationUtils.loadAnimation(context,R.anim.slide_in_left)
+        val rightAnim=AnimationUtils.loadAnimation(context,R.anim.slide_in_right)
+        iv_logo_sd_symbol.animation=leftAnim
+        iv_logo_sd_text.animation=rightAnim
         progressbar.isVisible=true
     }
 
