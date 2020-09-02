@@ -1,16 +1,20 @@
 package dog.snow.androidrecruittest.ui.splash
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import dog.snow.androidrecruittest.Event
 import dog.snow.androidrecruittest.repository.CacheUpdateResult
 import dog.snow.androidrecruittest.repository.Repository
 import kotlinx.coroutines.*
+import java.util.*
 
 class SplashViewModel @ViewModelInject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
+
+    private val TAG = "SplashViewModel"
 
     private val _navigateToListFragment = MutableLiveData<Event<Boolean>>()
     val navigateToListFragment: LiveData<Event<Boolean>>
@@ -47,7 +51,6 @@ class SplashViewModel @ViewModelInject constructor(
                 is CacheUpdateResult.Success -> {
 
                         navigateToList()
-
                 }
             }
         }
@@ -55,7 +58,13 @@ class SplashViewModel @ViewModelInject constructor(
 
     private fun lastUpdateInLessThanTenMinutes(): Boolean {
 
-       return true
+        val currentTime=Calendar.getInstance().timeInMillis
+        Log.d(TAG, "lastUpdateInLessThanTenMinutes: timeInMilis")
+        Log.d(TAG, "lastUpdateInLessThanTenMinutes: current: $currentTime")
+       val lastUpdateTime=repository.getLastUpdateDate()
+        Log.d(TAG, "lastUpdateInLessThanTenMinutes: last: $lastUpdateTime")
+        Log.d(TAG, "lastUpdateInLessThanTenMinutes: if ${lastUpdateTime + TEN_MINUTES > currentTime}")
+        return lastUpdateTime + TEN_MINUTES > currentTime
     }
 
     private fun showError(exception: Exception) {
@@ -66,3 +75,5 @@ class SplashViewModel @ViewModelInject constructor(
         _showError.value = null
     }
 }
+
+const val TEN_MINUTES=600000

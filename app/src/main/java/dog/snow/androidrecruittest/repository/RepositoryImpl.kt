@@ -13,6 +13,7 @@ import dog.snow.androidrecruittest.ui.details.Detail
 import dog.snow.androidrecruittest.ui.list.ListItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.*
 import javax.inject.Inject
 
 
@@ -21,7 +22,7 @@ class RepositoryImpl @Inject constructor(
     private val photoService: PhotoService,
     private val userService: UserService,
     database: LocalDatabase,
-    preferenceProvider: PreferenceProvider
+    private val preferenceProvider: PreferenceProvider
 ) : Repository {
 
     private val TAG = "RepositoryImpl"
@@ -40,6 +41,9 @@ class RepositoryImpl @Inject constructor(
                 }
 
                 userPhotoDao.updateListOfUsers(databaseUserPhotos)
+                Log.d(TAG, "updateDataFromApi: lastTime ${Calendar.getInstance().timeInMillis}")
+                setLastUpdateDate(Calendar.getInstance().timeInMillis)
+
                 CacheUpdateResult.Success
             } catch (e: Exception) {
                 Log.e(TAG, "updateDataFromApi: exception", e)
@@ -60,6 +64,14 @@ class RepositoryImpl @Inject constructor(
             val userPhoto= userPhotoDao.getUserPhotoById(id)
            userPhoto.toDetail()
         }
+    }
+
+    override fun setLastUpdateDate(timeStamp: Long) {
+        preferenceProvider.setLastUpdate(timeStamp)
+    }
+
+    override fun getLastUpdateDate(): Long {
+       return preferenceProvider.getLastUpdate()
     }
 
     private suspend fun downloadPhotos():List<RawPhoto>{
