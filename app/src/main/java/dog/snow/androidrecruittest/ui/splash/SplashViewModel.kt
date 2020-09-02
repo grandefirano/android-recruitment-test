@@ -41,7 +41,7 @@ class SplashViewModel @ViewModelInject constructor(
         
         viewModelScope.launch {
 
-            val result = repository.updateDataFromApi()
+            val result = repository.updateDataFromApiWithRetry()
 
             when (result) {
                 is CacheUpdateResult.Error -> {

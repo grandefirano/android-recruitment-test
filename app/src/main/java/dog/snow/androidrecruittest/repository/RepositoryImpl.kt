@@ -17,9 +17,10 @@ import kotlinx.coroutines.withContext
 import java.util.*
 import javax.inject.Inject
 
+const val MAX_NUMBER_OF_RETRY=2
 
 class RepositoryImpl @Inject constructor(
-    private val albumService:AlbumService,
+    private val albumService: AlbumService,
     private val photoService: PhotoService,
     private val userService: UserService,
     database: LocalDatabase,
@@ -27,9 +28,24 @@ class RepositoryImpl @Inject constructor(
 ) : Repository {
 
     private val TAG = "RepositoryImpl"
-    private val userPhotoDao=database.userPhotoDao()
+    private val userPhotoDao = database.userPhotoDao()
 
-    override suspend fun updateDataFromApi(): CacheUpdateResult {
+
+    override suspend fun updateDataFromApiWithRetry(): CacheUpdateResult {
+
+        var cacheResult=updateDataFromApi()
+
+        if(cacheResult is CacheUpdateResult.Error) {
+            for (i in 1..MAX_NUMBER_OF_RETRY) {
+                cacheResult = updateDataFromApi()
+                if (cacheResult is CacheUpdateResult.Success) return cacheResult
+            }
+        }
+        return cacheResult
+    }
+
+    private suspend fun updateDataFromApi(): CacheUpdateResult {
+        Log.d(TAG, "updateDataFromApi: ")
         return withContext(Dispatchers.IO) {
             try {
                 val photos = downloadPhotos()
@@ -55,15 +71,15 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun getListItemsFromDatabase(searchQuery: String): List<ListItem> {
         return withContext(Dispatchers.IO) {
-           val userPhoto= userPhotoDao.getUserPhotos(searchQuery.formatToDBFormatQuery())
-             userPhoto.mapToListItems()
+            val userPhoto = userPhotoDao.getUserPhotos(searchQuery.formatToDBFormatQuery())
+            userPhoto.mapToListItems()
         }
     }
 
-    override suspend fun getDetailsFromDatabase(id: Int):Detail {
+    override suspend fun getDetailsFromDatabase(id: Int): Detail {
         return withContext(Dispatchers.IO) {
-            val userPhoto= userPhotoDao.getUserPhotoById(id)
-           userPhoto.toDetail()
+            val userPhoto = userPhotoDao.getUserPhotoById(id)
+            userPhoto.toDetail()
         }
     }
 
@@ -72,25 +88,27 @@ class RepositoryImpl @Inject constructor(
     }
 
     override fun getLastUpdateDate(): Long {
-       return preferenceProvider.getLastUpdate()
+        return preferenceProvider.getLastUpdate()
     }
 
-    private suspend fun downloadPhotos():List<RawPhoto>{
-       return photoService.getRawPhotos()
+    private suspend fun downloadPhotos(): List<RawPhoto> {
+        return photoService.getRawPhotos()
     }
-    private suspend fun downloadUser(id:Int):RawUser{
+
+    private suspend fun downloadUser(id: Int): RawUser {
 
         return userService.getRawUser(id)
     }
-    private suspend fun downloadAlbum(id:Int):RawAlbum{
+
+    private suspend fun downloadAlbum(id: Int): RawAlbum {
         return albumService.getRawAlbum(id)
     }
 
     private suspend fun createDatabaseUserPhoto(
-        photo:RawPhoto,
-        user:RawUser,
+        photo: RawPhoto,
+        user: RawUser,
         album: RawAlbum
-    ):DatabaseUserPhoto{
+    ): DatabaseUserPhoto {
         return withContext(Dispatchers.Default) {
             DatabaseUserPhoto(
                 photoId = photo.id,
@@ -104,21 +122,24 @@ class RepositoryImpl @Inject constructor(
             )
         }
     }
-    private suspend fun DatabaseUserPhoto.toDetail():Detail{
+
+    private suspend fun DatabaseUserPhoto.toDetail(): Detail {
         return withContext(Dispatchers.Default) {
             this@toDetail.run {
-                Detail(photoId = photoId,
+                Detail(
+                    photoId = photoId,
                     photoTitle = photoTitle,
                     albumTitle = albumTitle,
                     username = username,
                     email = email,
                     phone = phone,
-                    url = url)
+                    url = url
+                )
             }
         }
     }
 
-    private suspend fun List<DatabaseUserPhoto>.mapToListItems():List<ListItem> {
+    private suspend fun List<DatabaseUserPhoto>.mapToListItems(): List<ListItem> {
         return withContext(Dispatchers.Default) {
             this@mapToListItems.map {
                 ListItem(
@@ -131,13 +152,13 @@ class RepositoryImpl @Inject constructor(
         }
     }
 
-    fun String.formatToDBFormatQuery():String{
+    fun String.formatToDBFormatQuery(): String {
         return "%${this.replace(' ', '%')}%"
     }
 }
 
 
-sealed class CacheUpdateResult{
-    object Success:CacheUpdateResult()
-    data class Error(val exception:Exception):CacheUpdateResult()
+sealed class CacheUpdateResult {
+    object Success : CacheUpdateResult()
+    data class Error(val exception: Exception) : CacheUpdateResult()
 }
