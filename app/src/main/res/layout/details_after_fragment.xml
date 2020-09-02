@@ -71,13 +71,14 @@
 
         <TextView
             android:id="@+id/tv_album_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_normal"
             android:text="@{viewModel.details.albumTitle}"
-            android:layout_marginStart="@dimen/margin_normal"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="@+id/iv_album_title_icon"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guidelineVertical"
             app:layout_constraintTop_toBottomOf="@id/tv_album_title_label"
             tools:text="Album title" />
@@ -107,13 +108,14 @@
 
         <TextView
             android:id="@+id/tv_username"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_normal"
             android:text="@{viewModel.details.username}"
-            android:layout_marginStart="@dimen/margin_normal"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="@+id/iv_username_icon"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guidelineVertical"
             app:layout_constraintTop_toBottomOf="@id/tv_username_label"
             tools:text="Username" />
@@ -143,13 +145,14 @@
 
         <TextView
             android:id="@+id/tv_email"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_normal"
             android:text="@{viewModel.details.email}"
-            android:layout_marginStart="@dimen/margin_normal"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="@+id/iv_email_icon"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guidelineVertical"
             app:layout_constraintTop_toBottomOf="@id/tv_email_label"
             tools:text="art@snow.dog" />
@@ -179,13 +182,14 @@
 
         <TextView
             android:id="@+id/tv_phone"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_normal"
             android:text="@{viewModel.details.phone}"
-            android:layout_marginStart="@dimen/margin_normal"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="@+id/iv_phone_icon"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guidelineVertical"
             app:layout_constraintTop_toBottomOf="@id/tv_phone_label"
             tools:text="123-456-789" />
