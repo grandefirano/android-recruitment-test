@@ -13,7 +13,7 @@ fun ImageView.setImageUrl(url:String?){
     url?.let {
         Picasso.get()
             .load(url)
-            .noFade()
+
             .placeholder(R.drawable.ic_placeholder)
             .into(this)
 

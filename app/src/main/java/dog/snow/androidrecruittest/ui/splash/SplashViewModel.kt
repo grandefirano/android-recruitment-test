@@ -37,6 +37,8 @@ class SplashViewModel @ViewModelInject constructor(
 
     fun updateCache() {
 
+        Log.d(TAG, "updateCache: updating Cache")
+        
         viewModelScope.launch {
 
             val result = repository.updateDataFromApi()

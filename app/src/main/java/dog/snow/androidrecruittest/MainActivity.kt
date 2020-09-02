@@ -34,8 +34,6 @@ class MainActivity : AppCompatActivity(R.layout.main_activity){
             }
         })
     }
-
-
     class ConnectivityCallback(val notifyConnectedState:(connected:Boolean)->Unit) : ConnectivityManager.NetworkCallback() {
         override fun onCapabilitiesChanged(network: Network, capabilities: NetworkCapabilities) {
             val connected = capabilities.hasCapability(NET_CAPABILITY_INTERNET)
@@ -52,5 +50,8 @@ class MainActivity : AppCompatActivity(R.layout.main_activity){
         }
 
     }
+
+
+
 
 }

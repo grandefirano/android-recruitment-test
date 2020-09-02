@@ -46,7 +46,6 @@ class DetailsFragment : Fragment() {
 
         initActionBar()
 
-
         viewModel.setDetailsFromDatabase(args.id)
 
         details.observe(viewLifecycleOwner, Observer { details ->
@@ -56,7 +55,6 @@ class DetailsFragment : Fragment() {
 
         binding = DetailsFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-
         binding.viewModel = viewModel
 
         return binding.root
@@ -82,6 +80,4 @@ class DetailsFragment : Fragment() {
         }
 
     }
-
-
 }
