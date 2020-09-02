@@ -75,7 +75,11 @@ class ListFragment : Fragment() {
                 val id=idViewPair.first
                 val view=idViewPair.second
                 Log.d(TAG, "observeNavigationState: view $view")
-                val extras= FragmentNavigatorExtras(view.tv_photo_title to "title_$id")
+                val extras= FragmentNavigatorExtras(
+                    view.tv_photo_title to "title_$id",
+                    view.iv_thumb to "image_$id"
+
+                )
                 findNavController().navigate(
                     ListFragmentDirections.actionListFragmentToDetailsFragment(id),
                     extras

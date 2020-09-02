@@ -29,6 +29,14 @@ class DetailsFragment : Fragment() {
     val details by lazy {
         viewModel.details
     }
+    private val args: DetailsFragmentArgs by navArgs()
+    private lateinit var binding:DetailsFragmentBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +46,7 @@ class DetailsFragment : Fragment() {
 
         initActionBar()
 
-        val args: DetailsFragmentArgs by navArgs()
+
         viewModel.setDetailsFromDatabase(args.id)
 
         details.observe(viewLifecycleOwner, Observer { details ->
@@ -46,14 +54,19 @@ class DetailsFragment : Fragment() {
         })
 
 
-        val binding = DetailsFragmentBinding.inflate(inflater, container, false)
+        binding = DetailsFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
-        ViewCompat.setTransitionName(binding.tvPhotoTitle,"title_${args.id}")
-        ViewCompat.setTransitionName(binding.tvPhotoTitle,"image_${args.id}")
         binding.viewModel = viewModel
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        ViewCompat.setTransitionName(binding.tvPhotoTitle,"title_${args.id}")
+        ViewCompat.setTransitionName(binding.ivPhoto,"image_${args.id}")
+
     }
 
     private fun initActionBar() {

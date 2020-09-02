@@ -27,7 +27,6 @@
             android:contentDescription="@null"
             android:scaleType="centerCrop"
             thumbnailUrl="@{listItem.thumbnailUrl}"
-
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

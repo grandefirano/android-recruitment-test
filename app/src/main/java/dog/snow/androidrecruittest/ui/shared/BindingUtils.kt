@@ -18,14 +18,6 @@ fun ImageView.setImageUrl(url:String?){
             .into(this)
 
             }
-//    , object : Callback {
-//        override fun onSuccess() {
-//            startPostponedEnterTransition()
-//        }
-//
-//        fun onError() {
-//            startPostponedEnterTransition()
-//        })
     }
 
 @BindingAdapter("thumbnailUrl")
