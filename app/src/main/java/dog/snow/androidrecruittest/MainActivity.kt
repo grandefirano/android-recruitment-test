@@ -9,8 +9,15 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.layout_banner.*
+import kotlinx.android.synthetic.main.layout_toolbar.*
 import kotlinx.coroutines.*
 
 @AndroidEntryPoint
@@ -23,11 +30,20 @@ class MainActivity : AppCompatActivity(R.layout.main_activity){
         super.onCreate(savedInstanceState)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        registerConectivityCallback()
+        registerConnectivityCallback()
+//
+//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+//        val navController = navHostFragment.navController
+//        setupActionBar(navController)
 
     }
 
-    private fun registerConectivityCallback() {
+    private fun setupActionBar(navController: NavController){
+        val appBarConfiguration= AppBarConfiguration(navController.graph)
+        toolbar.setupWithNavController(navController,appBarConfiguration)
+    }
+
+    private fun registerConnectivityCallback() {
         val cm = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
         cm.registerDefaultNetworkCallback(ConnectivityCallback{ connected ->
             Log.d(TAG, "registerConectivityCallback:$connected ")

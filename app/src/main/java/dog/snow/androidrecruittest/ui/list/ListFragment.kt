@@ -16,12 +16,13 @@ import dog.snow.androidrecruittest.MainActivity
 import dog.snow.androidrecruittest.R
 import dog.snow.androidrecruittest.databinding.ListFragmentBinding
 import kotlinx.android.synthetic.main.layout_appbar.*
+import kotlinx.android.synthetic.main.layout_toolbar.view.*
 
 @AndroidEntryPoint
-class ListFragment : Fragment(){
+class ListFragment : Fragment() {
 
     private val TAG = "ListFragment"
-    private val viewModel:ListViewModel by viewModels()
+    private val viewModel: ListViewModel by viewModels()
 
     private val listOfResults by lazy {
         viewModel.listOfResults
@@ -31,7 +32,7 @@ class ListFragment : Fragment(){
         viewModel.searchQuery
     }
 
-    private val adapter by lazy{
+    private val adapter by lazy {
         ListAdapter(PhotoItemClickListener { item ->
             viewModel.onItemClicked(item.id)
         })
@@ -42,10 +43,9 @@ class ListFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (activity as MainActivity).appbar.isVisible=true
-        (activity as MainActivity).title=getString(R.string.app_name)
 
-        val binding= ListFragmentBinding.inflate(inflater,container,false)
+        initActionBar()
+        val binding = ListFragmentBinding.inflate(inflater, container, false)
 
         observeNavigationState()
         observeQuery()
@@ -57,10 +57,21 @@ class ListFragment : Fragment(){
         return binding.root
     }
 
+    private fun initActionBar() {
+        (activity as MainActivity).apply {
+            appbar.isVisible = true
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            title = getString(R.string.app_name)
+            supportActionBar?.setLogo(getDrawable(R.drawable.ic_logo_sd_symbol))
+            supportActionBar?.setDisplayUseLogoEnabled(true)
+            appbar.toolbar.titleMarginStart = resources.getDimensionPixelSize(R.dimen.margin_xlarge)
+        }
+    }
+
     private fun observeNavigationState() {
-        viewModel.navigateToDetailsFragment.observe(viewLifecycleOwner, Observer {event->
+        viewModel.navigateToDetailsFragment.observe(viewLifecycleOwner, Observer { event ->
             Log.d(TAG, "observeNavigationState: navigate")
-            event.getContentIfNotHandled()?.let { id->
+            event.getContentIfNotHandled()?.let { id ->
                 findNavController().navigate(
                     ListFragmentDirections.actionListFragmentToDetailsFragment(id)
                 )
@@ -70,14 +81,14 @@ class ListFragment : Fragment(){
     }
 
     private fun observeQuery() {
-        searchQuery.observe(viewLifecycleOwner, Observer {query->
+        searchQuery.observe(viewLifecycleOwner, Observer { query ->
             Log.d(TAG, "onCreateView:search query changed $query ")
             viewModel.filterList(query)
         })
     }
 
     private fun setRecyclerViewAndAdapter(binding: ListFragmentBinding) {
-        listOfResults.observe(viewLifecycleOwner, Observer {items->
+        listOfResults.observe(viewLifecycleOwner, Observer { items ->
 
             items?.let {
                 adapter.submitList(items)
@@ -87,9 +98,9 @@ class ListFragment : Fragment(){
             }
         })
 
-        binding.viewModel=viewModel
-        binding.rvItems.adapter=adapter
-        binding.rvItems.layoutManager=LinearLayoutManager(context)
+        binding.viewModel = viewModel
+        binding.rvItems.adapter = adapter
+        binding.rvItems.layoutManager = LinearLayoutManager(context)
 
     }
 }

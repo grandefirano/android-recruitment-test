@@ -10,10 +10,10 @@
             type="dog.snow.androidrecruittest.ui.details.DetailsViewModel" />
     </data>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/margin_normal">
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:padding="@dimen/margin_normal">-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -87,5 +87,5 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_email"
             tools:text="123-456-789" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+<!--    </ScrollView>-->
 </layout>
