@@ -6,6 +6,7 @@ import dog.snow.androidrecruittest.db.LocalDatabase
 import dog.snow.androidrecruittest.repository.model.RawAlbum
 import dog.snow.androidrecruittest.repository.model.RawPhoto
 import dog.snow.androidrecruittest.repository.model.RawUser
+import dog.snow.androidrecruittest.repository.provider.PreferenceProvider
 import dog.snow.androidrecruittest.repository.service.AlbumService
 import dog.snow.androidrecruittest.repository.service.PhotoService
 import dog.snow.androidrecruittest.repository.service.UserService

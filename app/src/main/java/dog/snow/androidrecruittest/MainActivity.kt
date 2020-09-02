@@ -1,7 +1,6 @@
 package dog.snow.androidrecruittest
 
 import android.net.ConnectivityManager
-import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
@@ -9,20 +8,12 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.layout_banner.*
-import kotlinx.android.synthetic.main.layout_toolbar.*
 import kotlinx.coroutines.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(R.layout.main_activity){
-
 
     private val TAG = "MainActivity"
 
@@ -31,9 +22,6 @@ class MainActivity : AppCompatActivity(R.layout.main_activity){
         setSupportActionBar(findViewById(R.id.toolbar))
 
         registerConnectivityCallback()
-
-
-
     }
 
     private fun registerConnectivityCallback() {

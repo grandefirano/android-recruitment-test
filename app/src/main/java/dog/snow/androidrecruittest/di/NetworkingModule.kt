@@ -1,7 +1,6 @@
 package dog.snow.androidrecruittest.di
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,7 +9,6 @@ import retrofit2.CallAdapter
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -23,7 +21,6 @@ object NetworkingModule {
     fun providesCallAdapterFactory():CallAdapter.Factory{
         return CoroutineCallAdapterFactory()
     }
-
 
     @Singleton
     @Provides

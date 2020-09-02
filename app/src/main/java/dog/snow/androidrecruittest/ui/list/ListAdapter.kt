@@ -1,13 +1,9 @@
 package dog.snow.androidrecruittest.ui.list
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import dog.snow.androidrecruittest.R
 import dog.snow.androidrecruittest.databinding.ListItemBinding
 
 class ListAdapter(private val clickListener: PhotoItemClickListener) :

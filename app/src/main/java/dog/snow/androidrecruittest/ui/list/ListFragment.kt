@@ -50,10 +50,6 @@ class ListFragment : Fragment() {
         observeNavigationState()
         observeQuery()
         setRecyclerViewAndAdapter(binding)
-
-        //TODO: make logic
-
-
         return binding.root
     }
 

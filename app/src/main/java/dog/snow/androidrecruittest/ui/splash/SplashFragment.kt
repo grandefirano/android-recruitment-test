@@ -1,8 +1,6 @@
 package dog.snow.androidrecruittest.ui.splash
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +15,6 @@ import dog.snow.androidrecruittest.R
 import dog.snow.androidrecruittest.MainActivity
 import kotlinx.android.synthetic.main.layout_appbar.*
 import kotlinx.android.synthetic.main.layout_progressbar.*
-import kotlinx.android.synthetic.main.layout_progressbar.view.*
 
 @AndroidEntryPoint
 class SplashFragment: Fragment(R.layout.splash_fragment) {

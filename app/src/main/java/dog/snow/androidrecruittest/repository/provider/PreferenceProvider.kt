@@ -1,6 +1,5 @@
-package dog.snow.androidrecruittest.repository
+package dog.snow.androidrecruittest.repository.provider
 
-import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import dog.snow.androidrecruittest.R

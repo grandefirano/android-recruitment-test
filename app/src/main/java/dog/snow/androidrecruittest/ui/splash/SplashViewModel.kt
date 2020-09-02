@@ -3,7 +3,7 @@ package dog.snow.androidrecruittest.ui.splash
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import dog.snow.androidrecruittest.Event
+import dog.snow.androidrecruittest.ui.shared.Event
 import dog.snow.androidrecruittest.repository.CacheUpdateResult
 import dog.snow.androidrecruittest.repository.Repository
 import kotlinx.coroutines.*
@@ -26,7 +26,8 @@ class SplashViewModel @ViewModelInject constructor(
 
 
     fun navigateToList() {
-        _navigateToListFragment.value = Event(true)
+        _navigateToListFragment.value =
+            Event(true)
     }
 
     fun tryAgain() {

@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dog.snow.androidrecruittest.Event
+import dog.snow.androidrecruittest.ui.shared.Event
 import dog.snow.androidrecruittest.repository.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -45,7 +45,8 @@ class ListViewModel @ViewModelInject constructor(
 
     fun onItemClicked(id: Int) {
 
-        _navigateToDetailsFragment.value = Event(id)
+        _navigateToDetailsFragment.value =
+            Event(id)
     }
 
     fun filterList(query: String) {

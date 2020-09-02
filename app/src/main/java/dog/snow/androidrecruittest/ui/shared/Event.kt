@@ -1,4 +1,4 @@
-package dog.snow.androidrecruittest
+package dog.snow.androidrecruittest.ui.shared
 
 open class Event<out T>(private val content: T) {
 
