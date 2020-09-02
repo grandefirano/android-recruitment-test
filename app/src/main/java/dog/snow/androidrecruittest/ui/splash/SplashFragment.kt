@@ -19,14 +19,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import dog.snow.androidrecruittest.R
 import dog.snow.androidrecruittest.MainActivity
-import dog.snow.androidrecruittest.shared.ConnectivityCallback
+
 import kotlinx.android.synthetic.main.layout_appbar.*
-import kotlinx.android.synthetic.main.layout_banner.*
 import kotlinx.android.synthetic.main.layout_progressbar.*
 import kotlinx.android.synthetic.main.splash_fragment.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SplashFragment: Fragment(R.layout.splash_fragment) {
