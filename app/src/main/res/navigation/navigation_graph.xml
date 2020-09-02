@@ -11,8 +11,7 @@
         android:label="ListFragment" >
         <action
             android:id="@+id/action_listFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment"
-            />
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"

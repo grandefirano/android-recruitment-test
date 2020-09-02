@@ -17,8 +17,8 @@ class ListViewModel @ViewModelInject constructor(
 ) : ViewModel() {
 
 
-    private val _navigateToDetailsFragment = MutableLiveData<Event<Pair<Int,View>>>()
-    val navigateToDetailsFragment: LiveData<Event<Pair<Int,View>>>
+    private val _navigateToDetailsFragment = MutableLiveData<Event<Pair<Int, View>>>()
+    val navigateToDetailsFragment: LiveData<Event<Pair<Int, View>>>
         get() = _navigateToDetailsFragment
 
     val searchQuery: MutableLiveData<String> = MutableLiveData("")
@@ -44,10 +44,10 @@ class ListViewModel @ViewModelInject constructor(
         }
     }
 
-    fun onItemClicked(id: Int,view:View) {
+    fun onItemClicked(id: Int, view: View) {
 
         _navigateToDetailsFragment.value =
-            Event(Pair(id,view))
+            Event(Pair(id, view))
     }
 
     fun filterList(query: String) {

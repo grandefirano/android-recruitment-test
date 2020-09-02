@@ -1,11 +1,11 @@
 package dog.snow.androidrecruittest.ui.details
 
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
@@ -33,11 +33,12 @@ class DetailsFragment : Fragment() {
         viewModel.details
     }
     private val args: DetailsFragmentArgs by navArgs()
-    private lateinit var binding:DetailsFragmentBinding
+    private lateinit var binding: DetailsFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
 
     }
 
@@ -65,11 +66,29 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        ViewCompat.setTransitionName(binding.tvPhotoTitle,"title_${args.id}")
-        ViewCompat.setTransitionName(binding.ivPhoto,"image_${args.id}")
 
+        addConstraintAnimationOperations()
+        addEnteringAnimation()
+    }
 
-        addAnimationOperations()
+    private fun addEnteringAnimation() {
+        ViewCompat.setTransitionName(binding.tvPhotoTitle, "title_${args.id}")
+        ViewCompat.setTransitionName(binding.ivPhoto, "image_${args.id}")
+
+        val leftAnim = AnimationUtils.loadAnimation(context, R.anim.slide_in_left)
+        val rightAnim = AnimationUtils.loadAnimation(context, R.anim.slide_in_right)
+        rightAnim.let{
+            iv_email_icon.animation = it
+            iv_phone_icon.animation = it
+            iv_username_icon.animation = it
+            iv_album_title_icon.animation = it
+            tv_username.animation = it
+        }
+
+        leftAnim.let {
+            tv_album_title.animation = it
+            bt_more.animation = it
+        }
     }
 
     private fun initActionBar() {
@@ -79,14 +98,14 @@ class DetailsFragment : Fragment() {
             supportActionBar?.setDisplayUseLogoEnabled(false)
             appbar.toolbar.titleMarginStart = resources.getDimensionPixelSize(R.dimen.margin_normal)
             appbar.setExpanded(true, true)
-            appbar.toolbar.setNavigationOnClickListener{
+            appbar.toolbar.setNavigationOnClickListener {
                 onBackPressed()
             }
         }
 
     }
 
-    private fun addAnimationOperations() {
+    private fun addConstraintAnimationOperations() {
         var set = false
         val constraint1 = ConstraintSet()
         constraint1.clone(root)

@@ -35,8 +35,8 @@ class ListFragment : Fragment() {
     }
 
     private val listAdapter by lazy {
-        ListAdapter(PhotoItemClickListener { item,view ->
-            viewModel.onItemClicked(item.id,view)
+        ListAdapter(PhotoItemClickListener { item, view ->
+            viewModel.onItemClicked(item.id, view)
         })
     }
 
@@ -71,11 +71,11 @@ class ListFragment : Fragment() {
         viewModel.navigateToDetailsFragment.observe(viewLifecycleOwner, Observer { event ->
             Log.d(TAG, "observeNavigationState: navigate")
 
-            event.getContentIfNotHandled()?.let {  idViewPair->
-                val id=idViewPair.first
-                val view=idViewPair.second
+            event.getContentIfNotHandled()?.let { idViewPair ->
+                val id = idViewPair.first
+                val view = idViewPair.second
                 Log.d(TAG, "observeNavigationState: view $view")
-                val extras= FragmentNavigatorExtras(
+                val extras = FragmentNavigatorExtras(
                     view.tv_photo_title to "title_$id",
                     view.iv_thumb to "image_$id"
 

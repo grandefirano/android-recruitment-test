@@ -7,11 +7,11 @@ import dog.snow.androidrecruittest.R
 
 
 @BindingAdapter("imageUrl")
-fun ImageView.setImageUrl(url:String?){
+fun ImageView.setImageUrl(url: String?) {
     url?.let {
         Picasso.get()
             .load(url)
             .placeholder(R.drawable.ic_placeholder)
             .into(this)
-            }
     }
+}

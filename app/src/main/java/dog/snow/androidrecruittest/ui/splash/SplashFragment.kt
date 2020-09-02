@@ -1,15 +1,10 @@
 package dog.snow.androidrecruittest.ui.splash
 
-import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,10 +20,10 @@ import kotlinx.android.synthetic.main.layout_progressbar.*
 import kotlinx.android.synthetic.main.splash_fragment.*
 
 @AndroidEntryPoint
-class SplashFragment: Fragment(R.layout.splash_fragment) {
+class SplashFragment : Fragment(R.layout.splash_fragment) {
 
-    val viewModel:SplashViewModel by viewModels()
-    private val TAG = "SplashFragment"
+    val viewModel: SplashViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +36,7 @@ class SplashFragment: Fragment(R.layout.splash_fragment) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (activity as MainActivity).appbar.isVisible=false
+        (activity as MainActivity).appbar.isVisible = false
 
         observeNavigationState()
         observeErrorState()
@@ -50,36 +45,40 @@ class SplashFragment: Fragment(R.layout.splash_fragment) {
     }
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val leftAnim=AnimationUtils.loadAnimation(context,R.anim.slide_in_left)
-        val rightAnim=AnimationUtils.loadAnimation(context,R.anim.slide_in_right)
-        iv_logo_sd_symbol.animation=leftAnim
-        iv_logo_sd_text.animation=rightAnim
-        progressbar.isVisible=true
+        setEnterAnimation()
+        progressbar.isVisible = true
+    }
+
+    private fun setEnterAnimation() {
+        val leftAnim = AnimationUtils.loadAnimation(context, R.anim.slide_in_left)
+        val rightAnim = AnimationUtils.loadAnimation(context, R.anim.slide_in_right)
+        iv_logo_sd_symbol.animation = leftAnim
+        iv_logo_sd_text.animation = rightAnim
     }
 
 
     private fun observeNavigationState() {
-        viewModel.navigateToListFragment.observe(viewLifecycleOwner, Observer { event->
-           event.getContentIfNotHandled()?.let {
-               findNavController().navigate(
-                   SplashFragmentDirections.actionSplashFragmentToListFragment()
-               )
-           }
+        viewModel.navigateToListFragment.observe(viewLifecycleOwner, Observer { event ->
+            event.getContentIfNotHandled()?.let {
+                findNavController().navigate(
+                    SplashFragmentDirections.actionSplashFragmentToListFragment()
+                )
+            }
 
         })
     }
+
     private fun observeErrorState() {
-        viewModel.showError.observe(viewLifecycleOwner, Observer {message->
-               if(message!==null){
-                    showError(message)
-                   progressbar.isVisible=false
-                }else{
-                   progressbar.isVisible=true
-               }
+        viewModel.showError.observe(viewLifecycleOwner, Observer { message ->
+            if (message !== null) {
+                showError(message)
+                progressbar.isVisible = false
+            } else {
+                progressbar.isVisible = true
+            }
 
 
         })
@@ -97,7 +96,7 @@ class SplashFragment: Fragment(R.layout.splash_fragment) {
             .show()
     }
 
-    private fun closeActivity(){
+    private fun closeActivity() {
         (activity as MainActivity).finish()
     }
 }

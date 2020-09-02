@@ -12,32 +12,33 @@ class ListAdapter(private val clickListener: PhotoItemClickListener) :
     androidx.recyclerview.widget.ListAdapter<ListItem, ListAdapter.ViewHolder>(
         DIFF_CALLBACK
     ) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int
+    override fun onCreateViewHolder(
+        parent: ViewGroup, viewType: Int
     ): ViewHolder =
         ViewHolder.from(parent)
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(getItem(position),clickListener)
+        holder.bind(getItem(position), clickListener)
 
     class ViewHolder private constructor(
-        private val binding:ListItemBinding
+        private val binding: ListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: ListItem, clickListener: PhotoItemClickListener){
+        fun bind(item: ListItem, clickListener: PhotoItemClickListener) {
 
-            ViewCompat.setTransitionName(binding.tvPhotoTitle,"title_${item.id}")
-            ViewCompat.setTransitionName(binding.ivThumb,"image_${item.id}")
-            binding.listItem=item
-            binding.clickListener=clickListener
+            ViewCompat.setTransitionName(binding.tvPhotoTitle, "title_${item.id}")
+            ViewCompat.setTransitionName(binding.ivThumb, "image_${item.id}")
+            binding.listItem = item
+            binding.clickListener = clickListener
             binding.executePendingBindings()
 
         }
 
-        companion object{
-            fun from(parent: ViewGroup):ViewHolder{
-                val layoutInflater=LayoutInflater.from(parent.context)
-                val binding=ListItemBinding.inflate(layoutInflater,parent,false)
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ListItemBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }
@@ -54,6 +55,7 @@ class ListAdapter(private val clickListener: PhotoItemClickListener) :
         }
     }
 }
-class PhotoItemClickListener(private val clickListener: (item: ListItem, view:View) -> Unit){
-    fun onClick(item: ListItem,view:View)= clickListener(item,view)
+
+class PhotoItemClickListener(private val clickListener: (item: ListItem, view: View) -> Unit) {
+    fun onClick(item: ListItem, view: View) = clickListener(item, view)
 }

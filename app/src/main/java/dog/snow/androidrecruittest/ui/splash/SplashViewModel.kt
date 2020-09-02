@@ -38,22 +38,22 @@ class SplashViewModel @ViewModelInject constructor(
     fun updateCache() {
 
         Log.d(TAG, "updateCache: updating Cache")
-        
+
         viewModelScope.launch {
 
             val result = repository.updateDataFromApiWithRetry()
 
             when (result) {
                 is CacheUpdateResult.Error -> {
-                    if(lastUpdateInLessThanTenMinutes()){
+                    if (lastUpdateInLessThanTenMinutes()) {
                         navigateToList()
-                    }else {
+                    } else {
                         showError(result.exception)
                     }
                 }
                 is CacheUpdateResult.Success -> {
 
-                        navigateToList()
+                    navigateToList()
                 }
             }
         }
@@ -61,11 +61,8 @@ class SplashViewModel @ViewModelInject constructor(
 
     private fun lastUpdateInLessThanTenMinutes(): Boolean {
 
-        val currentTime=Calendar.getInstance().timeInMillis
-        Log.d(TAG, "lastUpdateInLessThanTenMinutes: timeInMilis")
-        Log.d(TAG, "lastUpdateInLessThanTenMinutes: current: $currentTime")
-       val lastUpdateTime=repository.getLastUpdateDate()
-        Log.d(TAG, "lastUpdateInLessThanTenMinutes: last: $lastUpdateTime")
+        val currentTime = Calendar.getInstance().timeInMillis
+        val lastUpdateTime = repository.getLastUpdateDate()
         Log.d(TAG, "lastUpdateInLessThanTenMinutes: if ${lastUpdateTime + TEN_MINUTES > currentTime}")
         return lastUpdateTime + TEN_MINUTES > currentTime
     }
@@ -79,4 +76,4 @@ class SplashViewModel @ViewModelInject constructor(
     }
 }
 
-const val TEN_MINUTES=600000
+const val TEN_MINUTES = 600000

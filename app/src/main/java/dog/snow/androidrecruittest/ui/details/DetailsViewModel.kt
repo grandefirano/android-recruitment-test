@@ -10,15 +10,15 @@ import kotlinx.coroutines.launch
 
 class DetailsViewModel @ViewModelInject constructor(
     private val repository: Repository
-):ViewModel(){
+) : ViewModel() {
 
-    val details:LiveData<Detail>
-    get() = _details
-    private val _details:MutableLiveData<Detail> =MutableLiveData()
+    val details: LiveData<Detail>
+        get() = _details
+    private val _details: MutableLiveData<Detail> = MutableLiveData()
 
-    fun setDetailsFromDatabase(id:Int){
+    fun setDetailsFromDatabase(id: Int) {
         viewModelScope.launch {
-           val detail= repository.getDetailsFromDatabase(id)
+            val detail = repository.getDetailsFromDatabase(id)
             _details.postValue(detail)
         }
     }

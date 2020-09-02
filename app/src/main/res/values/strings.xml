@@ -10,4 +10,13 @@
     <string name="cant_download_dialog_btn_negative">Close</string>
     <string name="preference_last_update_key">lastupdate</string>
     <string name="last_update_key">last_update_key</string>
+    <string name="album_title">album</string>
+    <string name="album_title_label">Album Title</string>
+    <string name="person_title">person</string>
+    <string name="username_label">Username</string>
+    <string name="mail_title">mail</string>
+    <string name="email_label">Email</string>
+    <string name="phone_title">phone</string>
+    <string name="phone_number_label">Phone number</string>
+    <string name="more_info_label">More Info</string>
 </resources>

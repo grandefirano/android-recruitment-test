@@ -23,8 +23,8 @@
             android:id="@+id/iv_photo"
             style="@style/AppTheme.PlaceHolder"
             imageUrl="@{viewModel.details.url}"
-            android:layout_width="@dimen/details_after_icon_span"
-            android:layout_height="@dimen/details_after_icon_span"
+            android:layout_width="@dimen/icon_span_details_after"
+            android:layout_height="@dimen/icon_span_details_after"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toTopOf="@+id/iv_album_title_icon"
@@ -45,27 +45,28 @@
             android:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="@+id/iv_photo"
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             app:layout_constraintTop_toTopOf="@+id/iv_photo"
-            tools:text="Photo title" />
+            tools:text="Photo title"
+            tools:targetApi="o" />
 
         <ImageView
             android:id="@+id/iv_album_title_icon"
-            android:layout_width="@dimen/details_after_icon_span"
-            android:layout_height="@dimen/details_after_icon_span"
+            android:layout_width="@dimen/icon_span_details_after"
+            android:layout_height="@dimen/icon_span_details_after"
             android:src="@drawable/ic_photo_album"
             app:layout_constraintBottom_toTopOf="@+id/iv_username_icon"
             app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_photo" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_photo"
+            android:contentDescription="@string/album_title" />
 
         <TextView
             android:id="@+id/tv_album_title_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Album Title"
+            android:text="@string/album_title_label"
             android:layout_marginStart="@dimen/margin_normal"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toEndOf="@id/guidelineVertical"
@@ -87,20 +88,21 @@
 
         <ImageView
             android:id="@+id/iv_username_icon"
-            android:layout_width="@dimen/details_after_icon_span"
-            android:layout_height="@dimen/details_after_icon_span"
+            android:layout_width="@dimen/icon_span_details_after"
+            android:layout_height="@dimen/icon_span_details_after"
             android:src="@drawable/ic_person"
             app:layout_constraintBottom_toTopOf="@+id/iv_email_icon"
             app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_album_title_icon" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_album_title_icon"
+            android:contentDescription="@string/person_title" />
 
         <TextView
             android:id="@+id/tv_username_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username"
+            android:text="@string/username_label"
             android:layout_marginStart="@dimen/margin_normal"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toEndOf="@id/guidelineVertical"
@@ -122,20 +124,21 @@
 
         <ImageView
             android:id="@+id/iv_email_icon"
-            android:layout_width="@dimen/details_after_icon_span"
-            android:layout_height="@dimen/details_after_icon_span"
+            android:layout_width="@dimen/icon_span_details_after"
+            android:layout_height="@dimen/icon_span_details_after"
             android:src="@drawable/ic_email"
             app:layout_constraintBottom_toTopOf="@+id/iv_phone_icon"
             app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_username_icon" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_username_icon"
+            android:contentDescription="@string/email_label" />
 
         <TextView
             android:id="@+id/tv_email_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email address"
+            android:text="@string/email_label"
             android:layout_marginStart="@dimen/margin_normal"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toEndOf="@id/guidelineVertical"
@@ -157,20 +160,21 @@
 
         <ImageView
             android:id="@+id/iv_phone_icon"
-            android:layout_width="@dimen/details_after_icon_span"
-            android:layout_height="@dimen/details_after_icon_span"
+            android:layout_width="@dimen/icon_span_details_after"
+            android:layout_height="@dimen/icon_span_details_after"
             android:src="@drawable/ic_phone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_email_icon" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_email_icon"
+            android:contentDescription="@string/phone_title" />
 
         <TextView
             android:id="@+id/tv_phone_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Phone number"
+            android:text="@string/phone_number_label"
             android:layout_marginStart="@dimen/margin_normal"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toEndOf="@id/guidelineVertical"
@@ -195,7 +199,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            android:text="More Info"
+            android:text="@string/more_info_label"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
