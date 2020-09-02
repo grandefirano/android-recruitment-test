@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +18,7 @@ import dog.snow.androidrecruittest.R
 import dog.snow.androidrecruittest.databinding.ListFragmentBinding
 import kotlinx.android.synthetic.main.layout_appbar.*
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
+import kotlinx.android.synthetic.main.list_item.view.*
 
 @AndroidEntryPoint
 class ListFragment : Fragment() {
@@ -32,9 +34,9 @@ class ListFragment : Fragment() {
         viewModel.searchQuery
     }
 
-    private val adapter by lazy {
-        ListAdapter(PhotoItemClickListener { item ->
-            viewModel.onItemClicked(item.id)
+    private val listAdapter by lazy {
+        ListAdapter(PhotoItemClickListener { item,view ->
+            viewModel.onItemClicked(item.id,view)
         })
     }
 
@@ -68,9 +70,15 @@ class ListFragment : Fragment() {
     private fun observeNavigationState() {
         viewModel.navigateToDetailsFragment.observe(viewLifecycleOwner, Observer { event ->
             Log.d(TAG, "observeNavigationState: navigate")
-            event.getContentIfNotHandled()?.let { id ->
+
+            event.getContentIfNotHandled()?.let {  idViewPair->
+                val id=idViewPair.first
+                val view=idViewPair.second
+                Log.d(TAG, "observeNavigationState: view $view")
+                val extras= FragmentNavigatorExtras(view.tv_photo_title to "title_$id")
                 findNavController().navigate(
-                    ListFragmentDirections.actionListFragmentToDetailsFragment(id)
+                    ListFragmentDirections.actionListFragmentToDetailsFragment(id),
+                    extras
                 )
             }
 
@@ -88,7 +96,7 @@ class ListFragment : Fragment() {
         listOfResults.observe(viewLifecycleOwner, Observer { items ->
 
             items?.let {
-                adapter.submitList(items)
+                listAdapter.submitList(items)
 
                 binding.rvItems.isVisible = items.isNotEmpty()
                 binding.emptyView.tvEmpty.isVisible = items.isEmpty()
@@ -96,7 +104,14 @@ class ListFragment : Fragment() {
         })
 
         binding.viewModel = viewModel
-        binding.rvItems.adapter = adapter
+        binding.rvItems.apply {
+            adapter = listAdapter
+            postponeEnterTransition()
+            viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
+        }
         binding.rvItems.layoutManager = LinearLayoutManager(context)
 
     }

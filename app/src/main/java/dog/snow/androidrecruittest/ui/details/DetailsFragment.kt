@@ -1,15 +1,18 @@
 package dog.snow.androidrecruittest.ui.details
 
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.transition.TransitionInflater
 import dagger.hilt.android.AndroidEntryPoint
 import dog.snow.androidrecruittest.MainActivity
 import dog.snow.androidrecruittest.R
@@ -45,6 +48,9 @@ class DetailsFragment : Fragment() {
 
         val binding = DetailsFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
+
+        ViewCompat.setTransitionName(binding.tvPhotoTitle,"title_${args.id}")
+        ViewCompat.setTransitionName(binding.tvPhotoTitle,"image_${args.id}")
         binding.viewModel = viewModel
 
         return binding.root

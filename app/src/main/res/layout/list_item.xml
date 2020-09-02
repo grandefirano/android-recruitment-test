@@ -16,7 +16,7 @@
        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?selectableItemBackground"
-        android:onClick="@{()->clickListener.onClick(listItem)}"
+        android:onClick="@{(view)->clickListener.onClick(listItem,view)}"
         android:padding="@dimen/margin_normal">
 
         <ImageView
@@ -26,7 +26,8 @@
             android:layout_height="@dimen/thumb_size"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
-            imageUrl="@{listItem.thumbnailUrl}"
+            thumbnailUrl="@{listItem.thumbnailUrl}"
+
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
             android:text="@{listItem.title}"
+
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toEndOf="@+id/iv_thumb"
             app:layout_constraintTop_toTopOf="@+id/iv_thumb"

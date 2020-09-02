@@ -1,7 +1,9 @@
 package dog.snow.androidrecruittest.ui.list
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import dog.snow.androidrecruittest.databinding.ListItemBinding
@@ -24,6 +26,8 @@ class ListAdapter(private val clickListener: PhotoItemClickListener) :
 
         fun bind(item: ListItem, clickListener: PhotoItemClickListener){
 
+            ViewCompat.setTransitionName(binding.tvPhotoTitle,"title_${item.id}")
+            ViewCompat.setTransitionName(binding.ivThumb,"image_${item.id}")
             binding.listItem=item
             binding.clickListener=clickListener
             binding.executePendingBindings()
@@ -50,6 +54,6 @@ class ListAdapter(private val clickListener: PhotoItemClickListener) :
         }
     }
 }
-class PhotoItemClickListener(private val clickListener: (item: ListItem) -> Unit){
-    fun onClick(item: ListItem)= clickListener(item)
+class PhotoItemClickListener(private val clickListener: (item: ListItem, view:View) -> Unit){
+    fun onClick(item: ListItem,view:View)= clickListener(item,view)
 }
