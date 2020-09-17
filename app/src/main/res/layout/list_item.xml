@@ -20,7 +20,6 @@
         android:padding="@dimen/margin_normal">
 
         <ImageView
-            style="@style/AppTheme.PlaceHolder"
             android:id="@+id/iv_thumb"
             android:layout_width="@dimen/thumb_size"
             android:layout_height="@dimen/thumb_size"
@@ -36,7 +35,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
             android:text="@{listItem.title}"
-
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toEndOf="@+id/iv_thumb"
             app:layout_constraintTop_toTopOf="@+id/iv_thumb"

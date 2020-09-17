@@ -17,7 +17,6 @@
 
         <ImageView
             android:id="@+id/iv_photo"
-            style="@style/AppTheme.PlaceHolder"
             imageUrl="@{viewModel.details.url}"
             android:layout_width="@dimen/icon_span_details_after"
             android:layout_height="@dimen/icon_span_details_after"

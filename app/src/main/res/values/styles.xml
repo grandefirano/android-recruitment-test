@@ -1,34 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Widget.AppTheme.AppBar" parent="@style/Widget.Design.AppBarLayout" >
-        <item name="android:background">@color/splash_bg</item>
-    </style>
-
-    <style name="Widget.AppTheme.Toolbar" parent="Widget.MaterialComponents.Toolbar">
-        <item name="logo">@drawable/ic_logo_sd_symbol</item>
-    </style>
-
     <style name="Widget.AppTheme.Banner" parent="@style/Widget.MaterialComponents.TextView" >
         <item name="android:textColor">@color/error_color</item>
-        <item name="android:background">@color/accent_color</item>
         <item name="android:textAlignment">center</item>
-    </style>
-
-
-    <style name="AppTheme.LogoSymbol" parent="@style/Widget.MaterialComponents.ShapeableImageView">
-        <item name="srcCompat">@drawable/ic_logo_sd_symbol</item>
-    </style>
-    <style name="AppTheme.LogoText" parent="@style/Widget.MaterialComponents.ShapeableImageView">
-        <item name="srcCompat">@drawable/ic_logo_sd_text</item>
-    </style>
-
-    <style name="AppTheme.PlaceHolder" parent="@style/Widget.MaterialComponents.ShapeableImageView">
-        <item name="background">@drawable/ic_placeholder</item>
-    </style>
-
-    <style name="AppTheme.Button" parent="Widget.MaterialComponents.Button.OutlinedButton">
-
     </style>
 
 </resources>
