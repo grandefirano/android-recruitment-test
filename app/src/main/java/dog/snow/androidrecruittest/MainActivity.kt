@@ -7,18 +7,29 @@ import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.layout_banner.*
+import dog.snow.androidrecruittest.databinding.MainActivityBinding
 import kotlinx.coroutines.*
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(R.layout.main_activity){
+class MainActivity : AppCompatActivity(){
 
     private val TAG = "MainActivity"
 
+    private val connectionFlag by lazy {
+        MutableLiveData<Boolean>(false)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val binding:MainActivityBinding=
+            DataBindingUtil.setContentView(this,R.layout.main_activity)
+        binding.lifecycleOwner=this
+        binding.connectionFlag=connectionFlag
+
         setSupportActionBar(findViewById(R.id.toolbar))
 
         registerConnectivityCallback()
@@ -30,7 +41,7 @@ class MainActivity : AppCompatActivity(R.layout.main_activity){
             Log.d(TAG, "registerConectivityCallback:$connected ")
 
             CoroutineScope(Dispatchers.Main).launch{
-                banner.isVisible=!connected
+                connectionFlag.value=connected
             }
         })
     }
@@ -50,8 +61,6 @@ class MainActivity : AppCompatActivity(R.layout.main_activity){
         }
 
     }
-
-
 
 
 }

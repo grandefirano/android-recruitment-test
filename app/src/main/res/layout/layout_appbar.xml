@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/appbar"
-    android:background="@color/splash_bg"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:animateLayoutChanges="true"
-    android:fitsSystemWindows="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <include layout="@layout/layout_toolbar" />
+    <data>
+        <variable
+            name="connectionFlag"
+            type="Boolean" />
+    </data>
 
-    <include layout="@layout/layout_banner" />
-</com.google.android.material.appbar.AppBarLayout>
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:background="@color/splash_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:fitsSystemWindows="true">
+
+        <include layout="@layout/layout_toolbar" />
+
+        <include layout="@layout/layout_banner" bind:connectionFlag="@{connectionFlag}"/>
+    </com.google.android.material.appbar.AppBarLayout>
+</layout>

@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,7 +20,7 @@ import dog.snow.androidrecruittest.R
 import dog.snow.androidrecruittest.databinding.ListFragmentBinding
 import kotlinx.android.synthetic.main.layout_appbar.*
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
-import kotlinx.android.synthetic.main.list_item.view.*
+
 
 @AndroidEntryPoint
 class ListFragment : Fragment() {
@@ -76,8 +78,8 @@ class ListFragment : Fragment() {
                 val view = idViewPair.second
                 Log.d(TAG, "observeNavigationState: view $view")
                 val extras = FragmentNavigatorExtras(
-                    view.tv_photo_title to "title_$id",
-                    view.iv_thumb to "image_$id"
+                    view.findViewById<TextView>(R.id.tv_photo_title) to "title_$id",
+                    view.findViewById<ImageView>(R.id.iv_thumb) to "image_$id"
 
                 )
                 findNavController().navigate(

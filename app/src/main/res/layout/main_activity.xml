@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinator"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
-    tools:context=".MainActivity">
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <include layout="@layout/layout_appbar" />
+    <data>
+        <import type="androidx.lifecycle.LiveData" />
+        <variable
+            name="connectionFlag"
+            type="LiveData&lt;Boolean>" />
+    </data>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_fragment"
-
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/navigation_graph"/>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:animateLayoutChanges="true"
+        tools:context=".MainActivity">
+
+        <include layout="@layout/layout_appbar" bind:connectionFlag="@{connectionFlag.booleanValue()}"/>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/navigation_graph" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

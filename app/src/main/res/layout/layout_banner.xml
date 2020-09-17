@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/banner"
-    style="@style/Widget.AppTheme.Banner"
-    android:background="@color/accent_color"
-    android:padding="@dimen/margin_small"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/offline_mode"
-    android:visibility="visible"
-    tools:visibility="visible" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="connectionFlag"
+            type="Boolean" />
+        <import type="android.view.View"/>
+    </data>
+
+    <TextView
+        android:id="@+id/banner"
+        style="@style/Widget.AppTheme.Banner"
+        android:background="@color/accent_color"
+        android:padding="@dimen/margin_small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/offline_mode"
+        android:visibility="@{connectionFlag? View.GONE: View.VISIBLE}"
+        tools:visibility="visible" />
+</layout>
