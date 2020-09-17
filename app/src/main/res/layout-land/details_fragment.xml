@@ -107,7 +107,7 @@
             android:id="@+id/tv_username"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="@{viewModel.details.username}"
+            android:text="@{@string/author_text_value(viewModel.details.username)}"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintBottom_toBottomOf="@+id/iv_username_icon"
             app:layout_constraintEnd_toEndOf="parent"

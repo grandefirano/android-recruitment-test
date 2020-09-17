@@ -115,7 +115,7 @@
 
         <TextView
             android:id="@+id/tv_username"
-            author="@{viewModel.details.username}"
+            android:text="@{@string/author_text_value(viewModel.details.username)}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"

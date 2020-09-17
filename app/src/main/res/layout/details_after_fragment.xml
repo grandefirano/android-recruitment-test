@@ -112,7 +112,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_normal"
-            android:text="@{viewModel.details.username}"
+            android:text="@{@string/author_text_value(viewModel.details.username)}"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="@+id/iv_username_icon"
             app:layout_constraintEnd_toEndOf="parent"

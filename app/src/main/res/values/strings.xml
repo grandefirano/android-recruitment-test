@@ -19,4 +19,6 @@
     <string name="phone_title">phone</string>
     <string name="phone_number_label">Phone number</string>
     <string name="more_info_label">More Info</string>
+    <string name="author_text_value">by %s</string>
+
 </resources>
