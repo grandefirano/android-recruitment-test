@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -64,7 +65,7 @@ class ListFragment : Fragment() {
             appBar.isVisible = true
             supportActionBar?.apply {
                 title = getString(R.string.app_name)
-                setLogo(getDrawable(R.drawable.ic_logo_sd_symbol))
+                setLogo(ContextCompat.getDrawable(requireContext(),R.drawable.ic_logo_sd_symbol))
                 setDisplayUseLogoEnabled(true)
                 setDisplayHomeAsUpEnabled(false)
             }
