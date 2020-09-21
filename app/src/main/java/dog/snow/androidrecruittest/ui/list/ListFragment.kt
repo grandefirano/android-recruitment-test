@@ -18,8 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dog.snow.androidrecruittest.MainActivity
 import dog.snow.androidrecruittest.R
 import dog.snow.androidrecruittest.databinding.ListFragmentBinding
-import kotlinx.android.synthetic.main.layout_appbar.*
-import kotlinx.android.synthetic.main.layout_toolbar.view.*
+
 
 
 @AndroidEntryPoint
@@ -59,13 +58,17 @@ class ListFragment : Fragment() {
 
     private fun initActionBar() {
         (activity as MainActivity).apply {
-            appbar.isVisible = true
+            val appBar=this.binding.layoutIncludeAppbar.appbar
+            val toolbar=this.binding.layoutIncludeAppbar.toolbar
 
-            title = getString(R.string.app_name)
-            supportActionBar?.setLogo(getDrawable(R.drawable.ic_logo_sd_symbol))
-            supportActionBar?.setDisplayUseLogoEnabled(true)
-            supportActionBar?.setDisplayHomeAsUpEnabled(false)
-            appbar.toolbar.titleMarginStart = resources.getDimensionPixelSize(R.dimen.margin_xlarge)
+            appBar.isVisible = true
+            supportActionBar?.apply {
+                title = getString(R.string.app_name)
+                setLogo(getDrawable(R.drawable.ic_logo_sd_symbol))
+                setDisplayUseLogoEnabled(true)
+                setDisplayHomeAsUpEnabled(false)
+            }
+            toolbar.titleMarginStart = resources.getDimensionPixelSize(R.dimen.margin_xlarge)
         }
     }
 

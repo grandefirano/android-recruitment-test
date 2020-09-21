@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dog.snow.androidrecruittest.R
 import dog.snow.androidrecruittest.MainActivity
 import dog.snow.androidrecruittest.databinding.SplashFragmentBinding
-import kotlinx.android.synthetic.main.layout_appbar.*
+
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
@@ -34,7 +34,7 @@ class SplashFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (activity as MainActivity).appbar.isVisible = false
+        (activity as MainActivity).binding.layoutIncludeAppbar.appbar.isVisible = false
 
 
         val binding = SplashFragmentBinding.inflate(inflater, container, false)

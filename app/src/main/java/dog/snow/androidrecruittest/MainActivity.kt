@@ -22,11 +22,15 @@ class MainActivity : AppCompatActivity(){
         MutableLiveData<Boolean>(false)
     }
 
+
+
+    lateinit var binding:MainActivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding:MainActivityBinding=
-            DataBindingUtil.setContentView(this,R.layout.main_activity)
+
+        binding= DataBindingUtil.setContentView(this,R.layout.main_activity)
         binding.lifecycleOwner=this
         binding.connectionFlag=connectionFlag
 

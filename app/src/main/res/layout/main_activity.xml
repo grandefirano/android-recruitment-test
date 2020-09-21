@@ -19,7 +19,8 @@
         android:animateLayoutChanges="true"
         tools:context=".MainActivity">
 
-        <include layout="@layout/layout_appbar" bind:connectionFlag="@{connectionFlag.booleanValue()}"/>
+        <include android:id="@+id/layout_include_appbar"
+            layout="@layout/layout_appbar" bind:connectionFlag="@{connectionFlag.booleanValue()}"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"

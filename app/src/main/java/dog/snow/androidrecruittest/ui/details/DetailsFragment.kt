@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
@@ -19,10 +18,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import dog.snow.androidrecruittest.MainActivity
 import dog.snow.androidrecruittest.R
 import dog.snow.androidrecruittest.databinding.DetailsFragmentBinding
-import kotlinx.android.synthetic.main.details_fragment.*
 
-import kotlinx.android.synthetic.main.layout_appbar.*
-import kotlinx.android.synthetic.main.layout_toolbar.view.*
+
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
@@ -54,7 +51,7 @@ class DetailsFragment : Fragment() {
         viewModel.setDetailsFromDatabase(args.id)
 
         details.observe(viewLifecycleOwner, Observer { details ->
-            (activity as MainActivity).title = details.photoTitle
+            (activity as MainActivity).supportActionBar?.title = details.photoTitle
         })
 
 
@@ -80,14 +77,24 @@ class DetailsFragment : Fragment() {
 
     private fun initActionBar() {
         (activity as MainActivity).apply {
-            appbar.isVisible = true
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            supportActionBar?.setDisplayUseLogoEnabled(false)
-            appbar.toolbar.titleMarginStart = resources.getDimensionPixelSize(R.dimen.margin_normal)
-            appbar.setExpanded(true, true)
-            appbar.toolbar.setNavigationOnClickListener {
-                onBackPressed()
+            val appBar=this.binding.layoutIncludeAppbar.appbar
+            val toolbar=this.binding.layoutIncludeAppbar.toolbar
+
+            appBar.apply {
+                isVisible = true
+                setExpanded(true, true)
             }
+            supportActionBar?.apply {
+                setDisplayHomeAsUpEnabled(true)
+                setDisplayUseLogoEnabled(false)
+            }
+            toolbar.apply {
+                titleMarginStart = resources.getDimensionPixelSize(R.dimen.margin_normal)
+                setNavigationOnClickListener {
+                    onBackPressed()
+                }
+            }
+
         }
 
     }
@@ -95,6 +102,7 @@ class DetailsFragment : Fragment() {
     private fun addConstraintAnimationOperations() {
         var set = false
         val constraint1 = ConstraintSet()
+        val root= binding.root
         constraint1.clone(root)
         val constraint2 = ConstraintSet()
         constraint2.clone(context, R.layout.details_after_fragment)
