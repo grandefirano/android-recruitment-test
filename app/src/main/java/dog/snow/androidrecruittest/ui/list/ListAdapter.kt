@@ -18,6 +18,7 @@ class ListAdapter(private val clickListener: PhotoItemClickListener) :
         ViewHolder.from(parent)
 
 
+    
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(getItem(position), clickListener)
 
